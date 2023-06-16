@@ -48,7 +48,7 @@ public class Subsytem1 {
         EntityManager em = emf.createEntityManager();
         Map<Command.Type, CommandHandler> map = new EnumMap<>(Command.Type.class);
         map.put(Command.Type.CREATE_CITY, new CreateCityHandler(em));
-//        map.put(Command.Type.CREATE_OFFICE, new CreateOfficeHandler(em));
+        map.put(Command.Type.CREATE_USER, new CreateUserHandler(em));
 //        map.put(Command.Type.CREATE_CLIENT, new CreateClientHandler(em));
 //        map.put(Command.Type.UPDATE_CLIENT, new UpdateClientHandler(em));
 //        map.put(Command.Type.GET_PLACES, new GetPlacesHandler(em));
@@ -64,6 +64,10 @@ public class Subsytem1 {
         JMSProducer producer = context.createProducer();
         JMSConsumer consumer = context.createConsumer(subsystem1Queue);
         Message msg;
+        msg = consumer.receiveNoWait();
+        while(msg != null){
+            msg = consumer.receiveNoWait();
+        }
         
         System.out.println("Subsystem 1 started!");        
         while(true){

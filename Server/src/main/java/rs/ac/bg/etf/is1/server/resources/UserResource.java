@@ -6,6 +6,7 @@ package rs.ac.bg.etf.is1.server.resources;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.FormParam;
@@ -14,7 +15,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
+import rs.ac.bg.etf.is1.commands.CreateUserCommand;
 import rs.ac.bg.etf.is1.entities.User;
+import rs.ac.bg.etf.is1.responses.JMSResponse;
+import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
+import rs.ac.bg.etf.is1.server.JMSCommunicator;
 
 /**
  *
@@ -26,13 +31,23 @@ public class UserResource {
     @PersistenceContext(name = "prodavnicaArtikalaPU")
     EntityManager em;
     
+    @Inject
+    JMSCommunicator comm;
+    
     @POST
     @Path("create")
     public Response createUser(@FormParam("username") String username, @FormParam("password") String password,
-            @FormParam("name") String name, @FormParam("lastName") String lastName, @FormParam("address") String address, 
-            @FormParam("IDCity") int IDCity){                        
+            @FormParam("name") String name, @FormParam("lastname") String lastName, @FormParam("address") String address, 
+            @FormParam("IDCity") String IDCity){                        
         
-        return Response.status(Response.Status.CREATED).build();
+        CreateUserCommand ccc = new CreateUserCommand(username, password, name, lastName, address, IDCity, 0);
+        JMSResponse response =  comm.exchange(ccc);
+        
+        if(response instanceof SuccessfulResponse){
+            return Response.status(Response.Status.CREATED).entity("User created!").build();
+        }        
+        return Response.status(Response.Status.BAD_REQUEST).entity("User with username is taken!").build();
+                
     }
     
     @POST

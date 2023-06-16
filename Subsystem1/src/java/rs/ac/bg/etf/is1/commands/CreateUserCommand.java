@@ -15,10 +15,10 @@ public class CreateUserCommand extends Command {
     private final String name;
     private final String lastname;
     private final String address;
-    private final int IDCity;
+    private final String IDCity;
     private final int money;
 
-    public CreateUserCommand(String username, String password, String name, String lastname, String address, int IDCity, int money) {
+    public CreateUserCommand(String username, String password, String name, String lastname, String address, String IDCity, int money) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -48,7 +48,7 @@ public class CreateUserCommand extends Command {
         return address;
     }
 
-    public int getIDCity() {
+    public String getIDCity() {
         return IDCity;
     }
 
