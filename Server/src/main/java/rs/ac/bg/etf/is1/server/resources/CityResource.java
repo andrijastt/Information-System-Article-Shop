@@ -10,6 +10,7 @@ import rs.ac.bg.etf.is1.entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -28,6 +29,7 @@ public class CityResource {
     
     @POST
     @Path("{cityName}")
+    @Consumes("application/xml")
     public Response createCity(@PathParam("cityName") String name){
         
         List<City> cities = em.createNamedQuery("City.findByName", City.class).setParameter("name", name).getResultList();
