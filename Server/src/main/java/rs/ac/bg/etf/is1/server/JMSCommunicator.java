@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.inject.Singleton;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
@@ -27,22 +28,23 @@ import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
  *
  * @author stoja
  */
+@Singleton
 public class JMSCommunicator {
     
     @Resource(lookup = "jms/__defaultConnectionFactory")
-    private static ConnectionFactory myConnectionFactory;
+    private ConnectionFactory myConnectionFactory;
     
     @Resource(lookup = "serverQueue")
-    private static Queue serverQueue;
+    private Queue serverQueue;
     
     @Resource(lookup = "subsystem1Queue")
-    private static Queue subsystem1Queue;
+    private Queue subsystem1Queue;
     
     @Resource(lookup = "subsystem2Queue")
-    private static Queue subsystem2Queue;
+    private Queue subsystem2Queue;
     
     @Resource(lookup = "subsystem3Queue")
-    private static Queue subsystem3Queue;
+    private Queue subsystem3Queue;
     
     private Queue getQueue(Command.Destination destination){
         
@@ -65,6 +67,10 @@ public class JMSCommunicator {
             ObjectMessage objMsg = context.createObjectMessage(cmd);            
             objMsg.setJMSReplyTo(serverQueue);
             objMsg.setJMSCorrelationID(cmd.getId());
+            
+            Queue queue = getQueue(cmd.getDestination());
+            
+            producer.send(queue, objMsg);
             
             Message msg = consumer.receive(5000);
             if(!(msg instanceof ObjectMessage)){

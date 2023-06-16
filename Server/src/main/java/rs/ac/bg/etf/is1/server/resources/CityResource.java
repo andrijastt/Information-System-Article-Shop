@@ -6,6 +6,7 @@ package rs.ac.bg.etf.is1.server.resources;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import rs.ac.bg.etf.is1.entities.*;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
+import rs.ac.bg.etf.is1.commands.Command;
+import rs.ac.bg.etf.is1.commands.CreateCityCommand;
+import rs.ac.bg.etf.is1.responses.JMSResponse;
+import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
+import rs.ac.bg.etf.is1.server.JMSCommunicator;
 
 /**
  *
@@ -23,6 +29,9 @@ import javax.ws.rs.core.Response;
  */
 @Path("city")
 public class CityResource {
+    
+    @Inject
+    JMSCommunicator comm;
     
     @PersistenceContext(name = "prodavnicaArtikalaPU")
     EntityManager em;
@@ -40,8 +49,16 @@ public class CityResource {
 //        city.setName(name);
 //        em.persist(city);
 
+
+        CreateCityCommand ccc = new CreateCityCommand(name);        
+        JMSResponse response =  comm.exchange(ccc);
         
-        return Response.status(Response.Status.CREATED).entity("Grad sa imenom " + name + " je kreiran!").build();
+        if(response instanceof SuccessfulResponse){
+            return Response.status(Response.Status.CREATED).entity("Grad sa imenom " + name + " je kreiran!").build();
+        }
+        
+        return Response.status(Response.Status.BAD_REQUEST).entity("Grad sa imenom " + name + " nije kreiran!").build();
+        
     }
     
     @GET
