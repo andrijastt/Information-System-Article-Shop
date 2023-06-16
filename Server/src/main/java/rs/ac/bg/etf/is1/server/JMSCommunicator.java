@@ -72,7 +72,7 @@ public class JMSCommunicator {
             
             producer.send(queue, objMsg);
             
-            Message msg = consumer.receive(5000);
+            Message msg = consumer.receive();
             if(!(msg instanceof ObjectMessage)){
                 System.err.println("Message is not an object message"  + msg);
             }            

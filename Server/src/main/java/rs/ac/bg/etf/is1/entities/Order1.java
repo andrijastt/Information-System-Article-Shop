@@ -42,12 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Order1.findByAddress", query = "SELECT o FROM Order1 o WHERE o.address = :address")})
 public class Order1 implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDOrder")
-    private Integer iDOrder;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TotalPrice")
@@ -62,6 +56,13 @@ public class Order1 implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "Address")
     private String address;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDOrder")
+    private Integer iDOrder;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDOrder")
     private List<Item> itemList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDOrder")
@@ -92,29 +93,6 @@ public class Order1 implements Serializable {
         this.iDOrder = iDOrder;
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Date getTimeCreated() {
-        return timeCreated;
-    }
-
-    public void setTimeCreated(Date timeCreated) {
-        this.timeCreated = timeCreated;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     @XmlTransient
     public List<Item> getItemList() {
@@ -165,6 +143,30 @@ public class Order1 implements Serializable {
     @Override
     public String toString() {
         return "rs.ac.bg.etf.is1.entities.Order1[ iDOrder=" + iDOrder + " ]";
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Date getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(Date timeCreated) {
+        this.timeCreated = timeCreated;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
 }

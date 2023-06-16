@@ -47,10 +47,10 @@ public class Category implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "Name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDSubcategory")
-    private List<Subcategory> subcategoryList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "category")
     private Subcategory subcategory;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDSubcategory")
+    private List<Subcategory> subcategoryList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDCategory")
     private List<Article> articleList;
 
@@ -82,6 +82,14 @@ public class Category implements Serializable {
         this.name = name;
     }
 
+    public Subcategory getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(Subcategory subcategory) {
+        this.subcategory = subcategory;
+    }
+
     @XmlTransient
     public List<Subcategory> getSubcategoryList() {
         return subcategoryList;
@@ -89,14 +97,6 @@ public class Category implements Serializable {
 
     public void setSubcategoryList(List<Subcategory> subcategoryList) {
         this.subcategoryList = subcategoryList;
-    }
-
-    public Subcategory getSubcategory() {
-        return subcategory;
-    }
-
-    public void setSubcategory(Subcategory subcategory) {
-        this.subcategory = subcategory;
     }
 
     @XmlTransient

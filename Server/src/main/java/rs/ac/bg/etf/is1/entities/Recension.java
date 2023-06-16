@@ -34,12 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Recension.findByGrade", query = "SELECT r FROM Recension r WHERE r.grade = :grade")})
 public class Recension implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDRecension")
-    private Integer iDRecension;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -49,6 +43,13 @@ public class Recension implements Serializable {
     @NotNull
     @Column(name = "Grade")
     private int grade;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDRecension")
+    private Integer iDRecension;
     @JoinColumn(name = "IDArticle", referencedColumnName = "IDArticle")
     @ManyToOne(optional = false)
     private Article iDArticle;
@@ -74,21 +75,6 @@ public class Recension implements Serializable {
         this.iDRecension = iDRecension;
     }
 
-    public String getDecription() {
-        return decription;
-    }
-
-    public void setDecription(String decription) {
-        this.decription = decription;
-    }
-
-    public int getGrade() {
-        return grade;
-    }
-
-    public void setGrade(int grade) {
-        this.grade = grade;
-    }
 
     public Article getIDArticle() {
         return iDArticle;
@@ -121,6 +107,22 @@ public class Recension implements Serializable {
     @Override
     public String toString() {
         return "rs.ac.bg.etf.is1.entities.Recension[ iDRecension=" + iDRecension + " ]";
+    }
+
+    public String getDecription() {
+        return decription;
+    }
+
+    public void setDecription(String decription) {
+        this.decription = decription;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
     
 }
