@@ -31,10 +31,12 @@ public class CreateCityRequest extends Request{
         String name = this.readString("City name");
         
         Response post = client.target("http://localhost:8080/Server/city")
-                .path("{cityName}")
-                .resolveTemplate("citName", this)
+                .path("/{cityName}")
+                .resolveTemplate("cityName", name)
                 .request()
                 .post(Entity.entity(name, "application/xml"));
+        
+        System.out.println(post);
         
     }            
 }

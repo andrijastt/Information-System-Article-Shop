@@ -32,13 +32,15 @@ public class CityResource {
     @Consumes("application/xml")
     public Response createCity(@PathParam("cityName") String name){
         
-        List<City> cities = em.createNamedQuery("City.findByName", City.class).setParameter("name", name).getResultList();
-        if(!cities.isEmpty()){
-            return Response.status(Response.Status.BAD_REQUEST).entity("Grad sa imenom " + name + " vec postoji!").build();
-        }
-        City city = new City();
-        city.setName(name);
-        em.persist(city);
+//        List<City> cities = em.createNamedQuery("City.findByName", City.class).setParameter("name", name).getResultList();
+//        if(!cities.isEmpty()){
+//            return Response.status(Response.Status.BAD_REQUEST).entity("Grad sa imenom " + name + " vec postoji!").build();
+//        }
+//        City city = new City();
+//        city.setName(name);
+//        em.persist(city);
+
+        
         return Response.status(Response.Status.CREATED).entity("Grad sa imenom " + name + " je kreiran!").build();
     }
     
