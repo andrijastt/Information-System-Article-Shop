@@ -50,11 +50,9 @@ public class Subsytem1 {
         map.put(Command.Type.CREATE_CITY, new CreateCityHandler(em));
         map.put(Command.Type.CREATE_USER, new CreateUserHandler(em));
         map.put(Command.Type.ADD_MONEY_TO_USER, new AddMoneyToUserHandler(em));
-//        map.put(Command.Type.UPDATE_CLIENT, new UpdateClientHandler(em));
-//        map.put(Command.Type.GET_PLACES, new GetPlacesHandler(em));
-//        map.put(Command.Type.GET_OFFICES, new GetOfficesHandler(em));
-//        map.put(Command.Type.GET_CLIENTS, new GetClientsHandler(em));
-//        map.put(Command.Type.GET_BACKUP, new GetBackupHandler(em));
+        map.put(Command.Type.CHANGE_ADDRESS_AND_CITY_FOR_USER, new ChangeAddressAndCityForUserHandler(em));
+        map.put(Command.Type.GET_CITIES, new GetCitiesHandler(em));
+        map.put(Command.Type.GET_USERS, new GetUsersHandler(em));
         return map;
     }
     

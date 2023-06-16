@@ -16,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import rs.ac.bg.etf.is1.commands.AddMoneyToUserCommand;
+import rs.ac.bg.etf.is1.commands.ChangeAddressAndCityForUser;
 import rs.ac.bg.etf.is1.commands.CreateUserCommand;
 import rs.ac.bg.etf.is1.entities.User;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
@@ -52,12 +53,16 @@ public class UserResource {
     }
     
     @POST
-    @Path("updateCity/{IDUser}?{IDCity}&{address}")
-    public Response updateUserCityAndAddress(@PathParam("IDCity") int IDCity, @PathParam("address") String address){
+    @Path("updateAddressAndCity")
+    public Response updateUserAddressAndCity(@FormParam("IDCity") String IDCity, @FormParam("address") String address, @FormParam("IDUser") String IDUser){
         
-        System.out.println("rs.ac.bg.etf.is1.server.resources.UserResource.updateUserCityAndAddress()" + IDCity);
-        System.out.println("rs.ac.bg.etf.is1.server.resources.UserResource.updateUserCityAndAddress()" + address);
-        return Response.status(Response.Status.CREATED).build();
+        ChangeAddressAndCityForUser caacfu = new ChangeAddressAndCityForUser(IDUser, address, IDCity);        
+         JMSResponse response =  comm.exchange(caacfu);
+        
+        if(response instanceof SuccessfulResponse){
+            return Response.status(Response.Status.ACCEPTED).entity("Address and/or city changed!").build();
+        }        
+        return Response.status(Response.Status.BAD_REQUEST).entity("Address and/or city not changed!").build();
     }
     
     @POST
@@ -68,7 +73,7 @@ public class UserResource {
         JMSResponse response = comm.exchange(amtuc);
                 
         if(response instanceof SuccessfulResponse){
-            return Response.status(Response.Status.CREATED).entity("Money added to user!").build();
+            return Response.status(Response.Status.ACCEPTED).entity("Money added to user!").build();
         }        
         return Response.status(Response.Status.BAD_REQUEST).entity("Money noy added to user!").build();
     }

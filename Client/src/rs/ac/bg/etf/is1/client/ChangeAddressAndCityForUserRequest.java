@@ -14,35 +14,31 @@ import javax.ws.rs.core.Response;
  *
  * @author stoja
  */
-public class AddMoneyToUserRequest extends Request {
+public class ChangeAddressAndCityForUserRequest extends Request{
 
-    public AddMoneyToUserRequest(Client client, Scanner scanner) {
+    public ChangeAddressAndCityForUserRequest(Client client, Scanner scanner) {
         super(client, scanner);
     }
 
     @Override
     public String name() {
-        return "Add monet to user request";
+        return "Change address and city for user";
     }
 
     @Override
     public Response send() {
         
-        int temp = 0;
-        do {            
-            String amount = this.readString("Amount of money to add to account (must be > 0)");
-            temp = Integer.parseInt(amount);
-        } while (temp <= 0);
-        
-        String amount = this.readString("Amount of money to add to account");
+        String IDCity = this.readString("New IDCity (leave blank if you dont want to change)");
+        String address = this.readString("New address (leave blank if you dont want to change)");
         String IDUser = this.readString("IDUser");        
         
         MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();
         map.add("IDUser", IDUser);
-        map.add("amount", amount);
+        map.add("IDCity", IDCity);
+        map.add("address", address);
         
         Response post = client.target("http://localhost:8080/Server/users")
-                .path("/updateMoney")                           
+                .path("/updateCity")                           
                 .request()
                 .post(Entity.form(map));                
                 

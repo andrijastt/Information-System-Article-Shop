@@ -10,17 +10,17 @@ package rs.ac.bg.etf.is1.commands;
  */
 public class ChangeAddressAndCityForUser extends Command{
 
-    private final int IDUser;
+    private final String IDUser;
     private final String address;
-    private final String city;
+    private final String IDCity;
 
-    public ChangeAddressAndCityForUser(int IDUser, String address, String city) {
+    public ChangeAddressAndCityForUser(String IDUser, String address, String IDCity) {
         this.IDUser = IDUser;
         this.address = address;
-        this.city = city;
+        this.IDCity = IDCity;
     }
 
-    public int getIDUser() {
+    public String getIDUser() {
         return IDUser;
     }
 
@@ -28,8 +28,8 @@ public class ChangeAddressAndCityForUser extends Command{
         return address;
     }
 
-    public String getCity() {
-        return city;
+    public String getIDCity() {
+        return IDCity;
     }        
     
     @Override
