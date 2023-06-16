@@ -10,20 +10,20 @@ package rs.ac.bg.etf.is1.commands;
  */
 public class AddMoneyToUserCommand extends Command {
 
-    private final int amountToAdd;
-    private final String username;   
+    private final String amountToAdd;
+    private final String IDUser;   
 
-    public AddMoneyToUserCommand(int amountToAdd, String username) {
+    public AddMoneyToUserCommand(String amountToAdd, String IDUser) {
         this.amountToAdd = amountToAdd;
-        this.username = username;        
+        this.IDUser = IDUser;        
     }   
 
-    public int getAmountToAdd() {
+    public String getAmountToAdd() {
         return amountToAdd;
     }        
 
-    public String getUsername() {
-        return username;
+    public String getIDUser() {
+        return IDUser;
     }
     
     @Override

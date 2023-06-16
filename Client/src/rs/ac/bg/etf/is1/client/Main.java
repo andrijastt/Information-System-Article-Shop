@@ -39,6 +39,8 @@ public class Main {
                     req.send();
                     break;
                 case 3:
+                    req =  new AddMoneyToUserRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 4:
                     break;

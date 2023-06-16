@@ -15,6 +15,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
+import rs.ac.bg.etf.is1.commands.AddMoneyToUserCommand;
 import rs.ac.bg.etf.is1.commands.CreateUserCommand;
 import rs.ac.bg.etf.is1.entities.User;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
@@ -60,10 +61,16 @@ public class UserResource {
     }
     
     @POST
-    @Path("updateMoney/{IDUser}/{amount}")
-    public Response updateMonet(@PathParam("IDUser") int IDUser, @PathParam("amount") int amount){                
+    @Path("updateMoney")
+    public Response updateMonet(@FormParam("IDUser") String IDUser, @FormParam("amount") String amount){                
         
-        return Response.status(Response.Status.CREATED).build();
+        AddMoneyToUserCommand amtuc = new AddMoneyToUserCommand(amount, IDUser);
+        JMSResponse response = comm.exchange(amtuc);
+                
+        if(response instanceof SuccessfulResponse){
+            return Response.status(Response.Status.CREATED).entity("Money added to user!").build();
+        }        
+        return Response.status(Response.Status.BAD_REQUEST).entity("Money noy added to user!").build();
     }
     
     @GET
