@@ -6,6 +6,7 @@ package rs.ac.bg.etf.is1.client;
 
 import java.util.Scanner;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -14,7 +15,7 @@ import javax.ws.rs.client.Client;
 public abstract class Request {
     
     public abstract String name();
-    public abstract void send();
+    public abstract Response send();
     
     protected Client client;    
     protected Scanner scanner;

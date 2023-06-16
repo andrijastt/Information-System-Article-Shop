@@ -27,7 +27,7 @@ public class CreateUserRequest extends Request{
     }
 
     @Override
-    public void send() {
+    public Response send() {
         
         String username = this.readString("Username");
         String password = this.readString("Password");
@@ -47,8 +47,9 @@ public class CreateUserRequest extends Request{
         Response post = client.target("http://localhost:8080/Server/users/create")                   
                 .request()
                 .post(Entity.form(map));
-        
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                
+        System.out.println(post);
+        return post;
     }
     
 }

@@ -26,7 +26,7 @@ public class CreateCityRequest extends Request{
     }
 
     @Override
-    public void send() {
+    public Response send() {
         
         String name = this.readString("City name");
         
@@ -36,7 +36,9 @@ public class CreateCityRequest extends Request{
                 .request()
                 .post(Entity.entity(name, "application/xml"));
         
+        
         System.out.println(post);
+        return post;
         
     }            
 }

@@ -51,9 +51,10 @@ public class CreateUserHandler extends CommandHandler{
         user.setIDCity(cities.get(0));
         user.setMoney(0);
         em.persist(user);
+        em.flush();
         Cart cart = new Cart();
         cart.setTotalPrice(0);
-        cart.setUser(user);
+        cart.setIDUser(user.getIDUser());
         em.persist(cart);
         em.getTransaction().commit();
         em.clear();
