@@ -84,6 +84,7 @@ public class JMSCommunicator {
             
             System.out.println("Response: " + obj);
             if(obj instanceof SuccessfulResponse) return (SuccessfulResponse) obj;
+            if(obj instanceof FailedResponse) return (FailedResponse) obj;
             else return (DataResponse) obj;
             
         } catch (JMSException ex) {
