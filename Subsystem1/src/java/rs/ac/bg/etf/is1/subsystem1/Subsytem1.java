@@ -30,7 +30,7 @@ import rs.ac.bg.etf.is1.responses.JMSResponse;
  *
  * @author stoja
  */
-public class Subsystem1 {
+public class Subsytem1 {
 
     @Resource(lookup = "jms/__defaultConnectionFactory")
     private static ConnectionFactory myConnectionFactory;
@@ -102,7 +102,7 @@ public class Subsystem1 {
                 producer.send(dest, msgSent);
                 
             } catch (JMSException ex) {
-                Logger.getLogger(Subsystem1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Subsytem1.class.getName()).log(Level.SEVERE, null, ex);
             }                        
         }
     }

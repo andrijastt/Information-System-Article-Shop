@@ -36,12 +36,12 @@ public class Subcategory implements Serializable {
     @NotNull
     @Column(name = "IDCategory")
     private Integer iDCategory;
-    @JoinColumn(name = "IDCategory", referencedColumnName = "IDCategory", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Category category;
     @JoinColumn(name = "IDSubcategory", referencedColumnName = "IDCategory")
     @ManyToOne(optional = false)
     private Category iDSubcategory;
+    @JoinColumn(name = "IDCategory", referencedColumnName = "IDCategory", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Category category;
 
     public Subcategory() {
     }
@@ -58,20 +58,20 @@ public class Subcategory implements Serializable {
         this.iDCategory = iDCategory;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public Category getIDSubcategory() {
         return iDSubcategory;
     }
 
     public void setIDSubcategory(Category iDSubcategory) {
         this.iDSubcategory = iDSubcategory;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
