@@ -23,6 +23,7 @@ import rs.ac.bg.etf.is1.commands.GetCitiesCommand;
 import rs.ac.bg.etf.is1.responses.DataResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
+import rs.ac.bg.etf.is1.rest.CityRest;
 import rs.ac.bg.etf.is1.server.JMSCommunicator;
 
 /**
@@ -46,21 +47,28 @@ public class CityResource {
         JMSResponse response =  comm.exchange(ccc);
         
         if(response instanceof SuccessfulResponse){
-            return Response.status(Response.Status.CREATED).entity("Grad sa imenom " + name + " je kreiran!").build();
+            return Response.status(Response.Status.CREATED).entity("City with name " + name + " created!").build();
         }        
-        return Response.status(Response.Status.BAD_REQUEST).entity("Grad sa imenom " + name + " nije kreiran!").build();
+        return Response.status(Response.Status.BAD_REQUEST).entity("City with name " + name + " didn't create!").build();
         
     }
     
     @GET
     @Path("getAllCities")
-    public List<City> getAllCities(){        
+    public Response getAllCities(){        
         GetCitiesCommand gcc = new GetCitiesCommand();
         JMSResponse response = comm.exchange(gcc);
         if(response instanceof DataResponse){
             DataResponse<List<City>> dataResponse = (DataResponse<List<City>>) response;
-            return dataResponse.getData();
+            
+            List<CityRest> cities = new ArrayList<>();
+            for(City city: dataResponse.getData()){
+                CityRest cityrest = new CityRest(city.getIDCity(), city.getName());
+                cities.add(cityrest);
+            }
+            
+            return Response.status(Response.Status.OK).entity(cities).build();
         }        
-        return null;          
+        return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't get all cities!").build();          
     }
 }

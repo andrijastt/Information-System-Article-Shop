@@ -38,7 +38,7 @@ public class ChangeAddressAndCityForUserRequest extends Request{
         map.add("address", address);
         
         Response post = client.target("http://localhost:8080/Server/users")
-                .path("/updateCity")                           
+                .path("/updateAddressAndCity")                           
                 .request()
                 .post(Entity.form(map));                
                 

@@ -43,6 +43,8 @@ public class Main {
                     req.send();
                     break;
                 case 4:
+                    req =  new ChangeAddressAndCityForUserRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 5:
                     break;
@@ -85,9 +87,7 @@ public class Main {
             }                        
 
         }
-        
-        
-        
+//        client.close();
     }
     
 }

@@ -19,10 +19,6 @@ public class UserRest {
     private int IDCity;
     private int money;
 
-    public UserRest() {
-    }
-    
-
     public UserRest(int IDUser, String username, String password, String name, String lastname, String address, int IDCity, int money) {
         this.IDUser = IDUser;
         this.username = username;

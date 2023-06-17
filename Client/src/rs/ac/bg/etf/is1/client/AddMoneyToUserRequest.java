@@ -29,12 +29,12 @@ public class AddMoneyToUserRequest extends Request {
     public Response send() {
         
         int temp = 0;
+        String amount = "";
         do {            
-            String amount = this.readString("Amount of money to add to account (must be > 0)");
+            amount = this.readString("Amount of money to add to account (must be > 0)");
             temp = Integer.parseInt(amount);
         } while (temp <= 0);
-        
-        String amount = this.readString("Amount of money to add to account");
+                
         String IDUser = this.readString("IDUser");        
         
         MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();

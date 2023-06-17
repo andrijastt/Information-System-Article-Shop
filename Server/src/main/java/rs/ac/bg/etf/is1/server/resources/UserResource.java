@@ -25,7 +25,6 @@ import rs.ac.bg.etf.is1.responses.DataResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
 import rs.ac.bg.etf.is1.rest.UserRest;
-import rs.ac.bg.etf.is1.rest.UserRestList;
 import rs.ac.bg.etf.is1.server.JMSCommunicator;
 
 /**
@@ -97,11 +96,7 @@ public class UserResource {
                         user.getLastname(), user.getAddress(), user.getIDCity().getIDCity(), user.getMoney());
                 users.add(userrest);
             }
-
-//            UserRestList url = new UserRestList();
-//            url.setUsers(users);
             return Response.status(Response.Status.OK).entity(users).build();
-//            return Response.status(Response.Status.OK).entity(url).build();
         }        
         return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't get all users!").build();
     }

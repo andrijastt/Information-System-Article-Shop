@@ -37,23 +37,13 @@ public class GetUsersRequest extends Request {
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();                        
         
-        String temp = response.readEntity(String.class);
-        System.out.println(temp);
-               
+        String temp = response.readEntity(String.class);                       
         Gson gson = new Gson();        
         List<UserRest> users = Arrays.asList(new GsonBuilder().create().fromJson(temp, UserRest[].class));
-//        respone.
-//        List<UserRest> users = (List<UserRest>)response.readEntity(List.class);
-//        List<UserRest> users = response.readEntity(new GenericType<List<UserRest>> () {});                                
-       
-//        List<UserRest> users = client.target("http://localhost:8080/Server/users")
-//                .path("getAllUsers")
-//                .request(MediaType.APPLICATION_XML)
-//                .get();
         
-//        for(UserRest user: users){
-//            System.out.println(user.toString() + "/n");
-//        }
+        for(UserRest user: users){
+            System.out.println(user.toString() + "\n");
+        }
         
         return Response.status(Response.Status.OK).build();
     }

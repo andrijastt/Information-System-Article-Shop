@@ -12,6 +12,7 @@ import rs.ac.bg.etf.is1.entities.User;
 import rs.ac.bg.etf.is1.responses.CommandHandler;
 import rs.ac.bg.etf.is1.responses.FailedResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
+import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
 
 /**
  *
@@ -61,7 +62,7 @@ public class ChangeAddressAndCityForUserHandler extends CommandHandler {
         em.getTransaction().commit();
         em.clear();        
         
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new SuccessfulResponse(caacfu);
     }
     
 }
