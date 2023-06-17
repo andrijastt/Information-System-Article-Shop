@@ -19,6 +19,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import rs.ac.bg.etf.is1.commands.Command;
 import rs.ac.bg.etf.is1.commands.CreateCityCommand;
+import rs.ac.bg.etf.is1.commands.GetCitiesCommand;
+import rs.ac.bg.etf.is1.responses.DataResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
 import rs.ac.bg.etf.is1.server.JMSCommunicator;
@@ -54,10 +56,13 @@ public class CityResource {
     @Path("getAllCities")
     public List<City> getAllCities(){
         
-        List<City> ret = new ArrayList<>();
-        
-        
-        
-        return ret;        
+        GetCitiesCommand gus = new GetCitiesCommand();
+        JMSResponse response = comm.exchange(gus);
+
+        if(response instanceof DataResponse){
+            DataResponse<List<City>> dataResponse = (DataResponse<List<City>>) response;
+            return dataResponse.getData();
+        }        
+        return null;          
     }
 }

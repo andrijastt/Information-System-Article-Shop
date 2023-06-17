@@ -18,7 +18,9 @@ import javax.ws.rs.core.Response;
 import rs.ac.bg.etf.is1.commands.AddMoneyToUserCommand;
 import rs.ac.bg.etf.is1.commands.ChangeAddressAndCityForUser;
 import rs.ac.bg.etf.is1.commands.CreateUserCommand;
+import rs.ac.bg.etf.is1.commands.GetUsersCommand;
 import rs.ac.bg.etf.is1.entities.User;
+import rs.ac.bg.etf.is1.responses.DataResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
 import rs.ac.bg.etf.is1.server.JMSCommunicator;
@@ -82,7 +84,13 @@ public class UserResource {
     @Path("getAllUsers")
     public List<User> getAllUsers(){
         
-        List<User> ret = new ArrayList<>();
-        return ret;        
+        GetUsersCommand gus = new GetUsersCommand();
+        JMSResponse response = comm.exchange(gus);
+        
+        if(response instanceof DataResponse){
+            DataResponse<List<User>> dataResponse = (DataResponse<List<User>>) response;
+            return dataResponse.getData();
+        }        
+        return null;                
     }
 }
