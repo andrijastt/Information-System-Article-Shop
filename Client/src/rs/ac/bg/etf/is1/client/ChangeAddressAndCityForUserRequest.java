@@ -42,7 +42,7 @@ public class ChangeAddressAndCityForUserRequest extends Request{
                 .request()
                 .post(Entity.form(map));                
                 
-        System.out.println(post.getEntity());
+        System.out.println(post.readEntity(String.class));
         return post;                
     }
     

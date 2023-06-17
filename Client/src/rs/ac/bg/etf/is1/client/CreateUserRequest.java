@@ -48,7 +48,7 @@ public class CreateUserRequest extends Request{
                 .request()
                 .post(Entity.form(map));
                 
-        System.out.println(post);
+        System.out.println(post.readEntity(String.class));
         return post;
     }
     

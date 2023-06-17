@@ -37,7 +37,7 @@ public class CreateCityRequest extends Request{
                 .post(Entity.entity(name, "application/xml"));
         
         
-        System.out.println(post);
+        System.out.println(post.readEntity(String.class));
         return post;
         
     }            

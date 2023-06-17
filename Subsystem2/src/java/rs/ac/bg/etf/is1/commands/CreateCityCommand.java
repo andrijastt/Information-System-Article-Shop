@@ -4,36 +4,31 @@
  */
 package rs.ac.bg.etf.is1.commands;
 
+import java.util.UUID;
+
 /**
  *
  * @author stoja
  */
-public class CreateCategoryCommand extends Command {
+public class CreateCityCommand extends Command {
 
-    private final String name;
-    private final String IDSubcategory;
-
-    public CreateCategoryCommand(String name, String IDSubcategory) {
+    private final String name;    
+    public CreateCityCommand(String name) {
         this.name = name;
-        this.IDSubcategory = IDSubcategory;
     }
-
-    public String getIDSubcategory() {
-        return IDSubcategory;
-    }    
 
     public String getName() {
         return name;
-    }
+    }    
     
     @Override
     public Destination getDestination() {
-        return Destination.SUBSYSTEM2;
+        return Destination.SUBSYSTEM1;
     }
 
     @Override
     public Type getType() {
-        return Type.CREATE_CATEGORY;
+        return Type.CREATE_CITY;
     }
-    
+            
 }

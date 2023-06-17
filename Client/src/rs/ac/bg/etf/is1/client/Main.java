@@ -47,6 +47,8 @@ public class Main {
                     req.send();
                     break;
                 case 5:
+                    req =  new CreateCategoryRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 6:
                     break;

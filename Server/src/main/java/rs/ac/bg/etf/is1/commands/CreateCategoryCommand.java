@@ -11,10 +11,16 @@ package rs.ac.bg.etf.is1.commands;
 public class CreateCategoryCommand extends Command {
 
     private final String name;
+    private final String IDSubcategory;
 
-    public CreateCategoryCommand(String name) {
+    public CreateCategoryCommand(String name, String IDSubcategory) {
         this.name = name;
+        this.IDSubcategory = IDSubcategory;
     }
+
+    public String getIDSubcategory() {
+        return IDSubcategory;
+    }    
 
     public String getName() {
         return name;

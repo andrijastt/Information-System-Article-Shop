@@ -8,22 +8,16 @@ package rs.ac.bg.etf.is1.commands;
  *
  * @author stoja
  */
-public class CreateCategoryCommand extends Command {
+public class GetAllArticlesThatUserSellsCommand extends Command {
+    
+    private final String username;    
 
-    private final String name;
-    private final String IDSubcategory;
-
-    public CreateCategoryCommand(String name, String IDSubcategory) {
-        this.name = name;
-        this.IDSubcategory = IDSubcategory;
+    public GetAllArticlesThatUserSellsCommand(String username) {
+        this.username = username;
     }
 
-    public String getIDSubcategory() {
-        return IDSubcategory;
-    }    
-
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
     
     @Override
@@ -33,7 +27,7 @@ public class CreateCategoryCommand extends Command {
 
     @Override
     public Type getType() {
-        return Type.CREATE_CATEGORY;
+        return Type.GET_ALL_ARTICLES_THAT_USER_SELLS;
     }
     
 }
