@@ -51,6 +51,8 @@ public class Main {
                     req.send();
                     break;
                 case 6:
+                    req =  new CreateArticleRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 7:
                     break;
