@@ -13,6 +13,8 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import rs.ac.bg.etf.is1.commands.AddMoneyToUserCommand;
 import rs.ac.bg.etf.is1.commands.ChangeAddressAndCityForUser;
@@ -23,6 +25,7 @@ import rs.ac.bg.etf.is1.responses.DataResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
 import rs.ac.bg.etf.is1.rest.UserRest;
+import rs.ac.bg.etf.is1.rest.UserRestList;
 import rs.ac.bg.etf.is1.server.JMSCommunicator;
 
 /**
@@ -81,7 +84,7 @@ public class UserResource {
     }
     
     @GET
-    @Path("getAllUsers")    
+    @Path("getAllUsers")        
     public Response getAllUsers(){        
         GetUsersCommand gus = new GetUsersCommand();
         JMSResponse response = comm.exchange(gus);        
@@ -94,11 +97,12 @@ public class UserResource {
                         user.getLastname(), user.getAddress(), user.getIDCity().getIDCity(), user.getMoney());
                 users.add(userrest);
             }
-            
-            return Response.ok(users).build();
-//            return dataResponse.getData();
+
+//            UserRestList url = new UserRestList();
+//            url.setUsers(users);
+            return Response.status(Response.Status.OK).entity(users).build();
+//            return Response.status(Response.Status.OK).entity(url).build();
         }        
         return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't get all users!").build();
-//        return null;
     }
 }

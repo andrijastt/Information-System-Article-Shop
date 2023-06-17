@@ -19,6 +19,10 @@ public class UserRest {
     private int IDCity;
     private int money;
 
+    public UserRest() {
+    }
+    
+
     public UserRest(int IDUser, String username, String password, String name, String lastname, String address, int IDCity, int money) {
         this.IDUser = IDUser;
         this.username = username;
@@ -30,6 +34,70 @@ public class UserRest {
         this.money = money;
     }        
 
+    public int getIDUser() {
+        return IDUser;
+    }
+
+    public void setIDUser(int IDUser) {
+        this.IDUser = IDUser;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getIDCity() {
+        return IDCity;
+    }
+
+    public void setIDCity(int IDCity) {
+        this.IDCity = IDCity;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
     @Override
     public String toString() {
         return "IDUser: " + IDUser + "\n" +
@@ -40,8 +108,5 @@ public class UserRest {
                 "address: " + address + "\n" +
                 "IDCity: " + IDCity + "\n" +
                 "money: " + money + "\n";
-    }
-    
-    
-    
+    }            
 }
