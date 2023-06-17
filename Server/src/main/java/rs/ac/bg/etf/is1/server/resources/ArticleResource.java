@@ -11,6 +11,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import rs.ac.bg.etf.is1.commands.ChangeArticlePriceCommand;
 import rs.ac.bg.etf.is1.commands.CreateArticleCommand;
 import rs.ac.bg.etf.is1.responses.FailedResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
@@ -33,8 +34,7 @@ public class ArticleResource {
     @POST
     @Path("create")
     public Response createArticle(@FormParam("name") String name, @FormParam("description") String description, @FormParam("price") String price
-    , @FormParam("IDUser") String IDUser, @FormParam("IDCategory") String IDCategory){
-        
+        , @FormParam("IDUser") String IDUser, @FormParam("IDCategory") String IDCategory){        
         CreateArticleCommand cac = new CreateArticleCommand(name, description, price, 0, IDUser, IDCategory);
         JMSResponse response = comm.exchange(cac);
         if(response instanceof SuccessfulResponse){
@@ -45,11 +45,30 @@ public class ArticleResource {
         return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
     }
     
-    @POST
-    @Path("changeArticlePrice")
-    public Response changeArticlePrice(@FormParam("IDUser") String IDUser, @FormParam("IDArticle") String IDArticle, @FormParam("price") String price){
-        
-        return Response.status(Response.Status.BAD_REQUEST).build(); // .entity(fr.toString())
-    }
+        @POST
+        @Path("changeArticlePrice")
+        public Response changeArticlePrice(@FormParam("IDUser") String IDUser, @FormParam("IDArticle") String IDArticle, @FormParam("price") String price){
+            ChangeArticlePriceCommand capc = new ChangeArticlePriceCommand(price, IDUser, IDArticle);
+            JMSResponse response = comm.exchange(capc);
+            if(response instanceof SuccessfulResponse){
+                SuccessfulResponse sr = (SuccessfulResponse) response;
+                return Response.status(Response.Status.OK).entity(sr.toString()).build();
+            }
+            FailedResponse fr = (FailedResponse) response;
+            return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
+        }
+//    @POST
+//    @Path("changeArticlePrice")
+//    public Response changeArticlePrice(@FormParam("IDUser") String IDUser, @FormParam("IDArticle") String IDArticle, @FormParam("price") String price){
+//        
+//        ChangeArticlePriceCommand capc = new ChangeArticlePriceCommand(price, IDUser, IDArticle);
+//        JMSResponse response = comm.exchange(capc);
+//        if(response instanceof SuccessfulResponse){
+//            SuccessfulResponse sr = (SuccessfulResponse) response;
+//            return Response.status(Response.Status.OK).entity(sr.toString()).build();
+//        }
+//        FailedResponse fr = (FailedResponse) response;
+//        return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
+//    }  
     
 }

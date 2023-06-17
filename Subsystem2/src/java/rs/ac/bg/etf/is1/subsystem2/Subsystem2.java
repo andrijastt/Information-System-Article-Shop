@@ -49,7 +49,7 @@ public class Subsystem2 {
         Map<Command.Type, CommandHandler> map = new EnumMap<>(Command.Type.class);
         map.put(Command.Type.CREATE_CATEGORY, new CreateCategoryHandler(em));
         map.put(Command.Type.CREATE_ARTICLE, new CreateArticleHandler(em));
-//        map.put(Command.Type.ADD_MONEY_TO_USER, new AddMoneyToUserHandler(em));
+        map.put(Command.Type.CHANGE_ARTICLE_PRICE, new ChangeArticlePriceHandler(em));
 //        map.put(Command.Type.CHANGE_ADDRESS_AND_CITY_FOR_USER, new ChangeAddressAndCityForUserHandler(em));
 //        map.put(Command.Type.GET_CITIES, new GetCitiesHandler(em));
 //        map.put(Command.Type.GET_USERS, new GetUsersHandler(em));

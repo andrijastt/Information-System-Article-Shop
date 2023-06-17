@@ -13,10 +13,7 @@ import javax.ws.rs.client.ClientBuilder;
  * @author stoja
  */
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
         
         Client client = ClientBuilder.newClient();
@@ -55,6 +52,8 @@ public class Main {
                     req.send();
                     break;
                 case 7:
+                    req =  new ChangeArticlePriceRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 8:
                     break;

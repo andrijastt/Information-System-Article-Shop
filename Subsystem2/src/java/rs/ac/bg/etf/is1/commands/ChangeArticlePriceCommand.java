@@ -10,36 +10,36 @@ package rs.ac.bg.etf.is1.commands;
  */
 public class ChangeArticlePriceCommand extends Command {
 
-    private final int price;
-    private final String username;
-    private final int IDArticle;   
+    private final String price;
+    private final String IDUser;
+    private final String IDArticle;   
 
-    public ChangeArticlePriceCommand(int price, String username, int IDArticle) {
+    public ChangeArticlePriceCommand(String price, String IDUser, String IDArticle) {
         this.price = price;
-        this.username = username;
+        this.IDUser = IDUser;
         this.IDArticle = IDArticle;
     }        
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public String getUsername() {
-        return username;
+    public String getIDUser() {
+        return IDUser;
     }
 
-    public int getIDArticle() {
+    public String getIDArticle() {
         return IDArticle;
     }
     
     @Override
-    public Destination getDestination() {
-        return Destination.SUBSYSTEM2;
+    public Command.Destination getDestination() {
+        return Command.Destination.SUBSYSTEM2;
     }
 
     @Override
-    public Type getType() {
-        return Type.CHANGE_ARTICLE_PRICE;
+    public Command.Type getType() {
+        return Command.Type.CHANGE_ARTICLE_PRICE;
     }
     
 }
