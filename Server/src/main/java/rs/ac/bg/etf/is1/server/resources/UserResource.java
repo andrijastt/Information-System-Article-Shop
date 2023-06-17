@@ -14,6 +14,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import rs.ac.bg.etf.is1.commands.AddMoneyToUserCommand;
 import rs.ac.bg.etf.is1.commands.ChangeAddressAndCityForUser;
@@ -77,18 +79,22 @@ public class UserResource {
         if(response instanceof SuccessfulResponse){
             return Response.status(Response.Status.ACCEPTED).entity("Money added to user!").build();
         }        
-        return Response.status(Response.Status.BAD_REQUEST).entity("Money noy added to user!").build();
+        return Response.status(Response.Status.BAD_REQUEST).entity("Money not added to user!").build();
     }
     
     @GET
     @Path("getAllUsers")
-    public List<User> getAllUsers(){        
+    @Produces(MediaType.TEXT_XML)
+    public Response getAllUsers(){        
         GetUsersCommand gus = new GetUsersCommand();
         JMSResponse response = comm.exchange(gus);        
         if(response instanceof DataResponse){
             DataResponse<List<User>> dataResponse = (DataResponse<List<User>>) response;
-            return dataResponse.getData();
+            List<User> users = dataResponse.getData();
+            return Response.ok(users).build();
+//            return dataResponse.getData();
         }        
-        return null;                
+        return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't get all users!").build();
+//        return null;
     }
 }

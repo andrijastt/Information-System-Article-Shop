@@ -59,8 +59,12 @@ public class Main {
                 case 11:
                     break;
                 case 12:
+                    req = new GetCitiesRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 13:
+                    req = new GetUsersRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 14:
                     break;
