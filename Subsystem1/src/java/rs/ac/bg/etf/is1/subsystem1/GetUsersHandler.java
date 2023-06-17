@@ -25,8 +25,8 @@ public class GetUsersHandler extends CommandHandler {
 
     @Override
     public JMSResponse handle(Command cmd) {
-        GetUsersCommand gcc = (GetUsersCommand) cmd;        
-        List<User> users = em.createNamedQuery("User.findAll").getResultList();        
+        GetUsersCommand gcc = (GetUsersCommand) cmd;                
+        List<User> users = em.createNamedQuery("User.findAll").getResultList();              
         DataResponse<List<User>> response = new DataResponse(gcc, users);
         return response;
     }

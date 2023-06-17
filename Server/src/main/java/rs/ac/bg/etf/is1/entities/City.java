@@ -47,9 +47,9 @@ public class City implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDCity")
-    private List<User> userList;
+    private List<Orders> ordersList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDCity")
-    private List<Order1> order1List;
+    private List<User> userList;
 
     public City() {
     }
@@ -80,21 +80,21 @@ public class City implements Serializable {
     }
 
     @XmlTransient
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
+    }
+
+    @XmlTransient
     public List<User> getUserList() {
         return userList;
     }
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
-    }
-
-    @XmlTransient
-    public List<Order1> getOrder1List() {
-        return order1List;
-    }
-
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
     }
 
     @Override

@@ -33,6 +33,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Item.findByTotalArticlePrice", query = "SELECT i FROM Item i WHERE i.totalArticlePrice = :totalArticlePrice")})
 public class Item implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDItem")
+    private Integer iDItem;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Amount")
@@ -41,19 +47,12 @@ public class Item implements Serializable {
     @NotNull
     @Column(name = "TotalArticlePrice")
     private int totalArticlePrice;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDItem")
-    private Integer iDItem;
     @JoinColumn(name = "IDArticle", referencedColumnName = "IDArticle")
     @ManyToOne(optional = false)
     private Article iDArticle;
     @JoinColumn(name = "IDOrder", referencedColumnName = "IDOrder")
     @ManyToOne(optional = false)
-    private Order1 iDOrder;
+    private Orders iDOrder;
 
     public Item() {
     }
@@ -76,6 +75,21 @@ public class Item implements Serializable {
         this.iDItem = iDItem;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getTotalArticlePrice() {
+        return totalArticlePrice;
+    }
+
+    public void setTotalArticlePrice(int totalArticlePrice) {
+        this.totalArticlePrice = totalArticlePrice;
+    }
 
     public Article getIDArticle() {
         return iDArticle;
@@ -85,11 +99,11 @@ public class Item implements Serializable {
         this.iDArticle = iDArticle;
     }
 
-    public Order1 getIDOrder() {
+    public Orders getIDOrder() {
         return iDOrder;
     }
 
-    public void setIDOrder(Order1 iDOrder) {
+    public void setIDOrder(Orders iDOrder) {
         this.iDOrder = iDOrder;
     }
 
@@ -116,22 +130,6 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return "rs.ac.bg.etf.is1.entities.Item[ iDItem=" + iDItem + " ]";
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public int getTotalArticlePrice() {
-        return totalArticlePrice;
-    }
-
-    public void setTotalArticlePrice(int totalArticlePrice) {
-        this.totalArticlePrice = totalArticlePrice;
     }
     
 }

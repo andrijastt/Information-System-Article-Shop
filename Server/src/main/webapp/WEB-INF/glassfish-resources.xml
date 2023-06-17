@@ -10,6 +10,5 @@
         <property name="URL" value="jdbc:mysql://localhost:3306/prodavnicaartikala?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
         <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/prodavnicaArtikala" object-type="user" pool-name="mysql_prodavnicaartikala_rootPool"/>
-    <jdbc-resource enabled="true" jndi-name="java:app/aa" object-type="user" pool-name="mysql_prodavnicaartikala_rootPool"/>
+    <jdbc-resource enabled="true" jndi-name="java:app/ProdavnicaArtikalaResource" object-type="user" pool-name="mysql_prodavnicaartikala_rootPool"/>
 </resources>

@@ -32,16 +32,22 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author stoja
  */
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o"),
-    @NamedQuery(name = "Order1.findByIDOrder", query = "SELECT o FROM Order1 o WHERE o.iDOrder = :iDOrder"),
-    @NamedQuery(name = "Order1.findByTotalPrice", query = "SELECT o FROM Order1 o WHERE o.totalPrice = :totalPrice"),
-    @NamedQuery(name = "Order1.findByTimeCreated", query = "SELECT o FROM Order1 o WHERE o.timeCreated = :timeCreated"),
-    @NamedQuery(name = "Order1.findByAddress", query = "SELECT o FROM Order1 o WHERE o.address = :address")})
-public class Order1 implements Serializable {
+    @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
+    @NamedQuery(name = "Orders.findByIDOrder", query = "SELECT o FROM Orders o WHERE o.iDOrder = :iDOrder"),
+    @NamedQuery(name = "Orders.findByTotalPrice", query = "SELECT o FROM Orders o WHERE o.totalPrice = :totalPrice"),
+    @NamedQuery(name = "Orders.findByTimeCreated", query = "SELECT o FROM Orders o WHERE o.timeCreated = :timeCreated"),
+    @NamedQuery(name = "Orders.findByAddress", query = "SELECT o FROM Orders o WHERE o.address = :address")})
+public class Orders implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDOrder")
+    private Integer iDOrder;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TotalPrice")
@@ -56,29 +62,22 @@ public class Order1 implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "Address")
     private String address;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDOrder")
-    private Integer iDOrder;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDOrder")
     private List<Item> itemList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDOrder")
-    private List<Transaction> transactionList;
     @JoinColumn(name = "IDCity", referencedColumnName = "IDCity")
     @ManyToOne(optional = false)
     private City iDCity;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDOrder")
+    private List<Transaction> transactionList;
 
-    public Order1() {
+    public Orders() {
     }
 
-    public Order1(Integer iDOrder) {
+    public Orders(Integer iDOrder) {
         this.iDOrder = iDOrder;
     }
 
-    public Order1(Integer iDOrder, int totalPrice, Date timeCreated, String address) {
+    public Orders(Integer iDOrder, int totalPrice, Date timeCreated, String address) {
         this.iDOrder = iDOrder;
         this.totalPrice = totalPrice;
         this.timeCreated = timeCreated;
@@ -91,58 +90,6 @@ public class Order1 implements Serializable {
 
     public void setIDOrder(Integer iDOrder) {
         this.iDOrder = iDOrder;
-    }
-
-
-    @XmlTransient
-    public List<Item> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<Item> itemList) {
-        this.itemList = itemList;
-    }
-
-    @XmlTransient
-    public List<Transaction> getTransactionList() {
-        return transactionList;
-    }
-
-    public void setTransactionList(List<Transaction> transactionList) {
-        this.transactionList = transactionList;
-    }
-
-    public City getIDCity() {
-        return iDCity;
-    }
-
-    public void setIDCity(City iDCity) {
-        this.iDCity = iDCity;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (iDOrder != null ? iDOrder.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order1)) {
-            return false;
-        }
-        Order1 other = (Order1) object;
-        if ((this.iDOrder == null && other.iDOrder != null) || (this.iDOrder != null && !this.iDOrder.equals(other.iDOrder))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "rs.ac.bg.etf.is1.entities.Order1[ iDOrder=" + iDOrder + " ]";
     }
 
     public int getTotalPrice() {
@@ -167,6 +114,57 @@ public class Order1 implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @XmlTransient
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
+    }
+
+    public City getIDCity() {
+        return iDCity;
+    }
+
+    public void setIDCity(City iDCity) {
+        this.iDCity = iDCity;
+    }
+
+    @XmlTransient
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (iDOrder != null ? iDOrder.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Orders)) {
+            return false;
+        }
+        Orders other = (Orders) object;
+        if ((this.iDOrder == null && other.iDOrder != null) || (this.iDOrder != null && !this.iDOrder.equals(other.iDOrder))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "rs.ac.bg.etf.is1.entities.Orders[ iDOrder=" + iDOrder + " ]";
     }
     
 }

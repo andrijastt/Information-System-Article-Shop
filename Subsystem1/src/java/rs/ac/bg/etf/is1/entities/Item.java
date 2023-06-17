@@ -52,7 +52,7 @@ public class Item implements Serializable {
     private Article iDArticle;
     @JoinColumn(name = "IDOrder", referencedColumnName = "IDOrder")
     @ManyToOne(optional = false)
-    private Order1 iDOrder;
+    private Orders iDOrder;
 
     public Item() {
     }
@@ -99,11 +99,11 @@ public class Item implements Serializable {
         this.iDArticle = iDArticle;
     }
 
-    public Order1 getIDOrder() {
+    public Orders getIDOrder() {
         return iDOrder;
     }
 
-    public void setIDOrder(Order1 iDOrder) {
+    public void setIDOrder(Orders iDOrder) {
         this.iDOrder = iDOrder;
     }
 

@@ -31,14 +31,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Incart.findByAmount", query = "SELECT i FROM Incart i WHERE i.amount = :amount")})
 public class Incart implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected IncartPK incartPK;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Amount")
     private int amount;
-
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected IncartPK incartPK;
     @JoinColumn(name = "IDArticle", referencedColumnName = "IDArticle", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Article article;
@@ -70,6 +69,13 @@ public class Incart implements Serializable {
         this.incartPK = incartPK;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     public Article getArticle() {
         return article;
@@ -110,14 +116,6 @@ public class Incart implements Serializable {
     @Override
     public String toString() {
         return "rs.ac.bg.etf.is1.entities.Incart[ incartPK=" + incartPK + " ]";
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
     
 }

@@ -34,17 +34,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cart.findByTotalPrice", query = "SELECT c FROM Cart c WHERE c.totalPrice = :totalPrice")})
 public class Cart implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TotalPrice")
-    private int totalPrice;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDUser")
     private Integer iDUser;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "TotalPrice")
+    private int totalPrice;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
     private List<Incart> incartList;
     @JoinColumn(name = "IDUser", referencedColumnName = "IDUser", insertable = false, updatable = false)
@@ -71,6 +70,13 @@ public class Cart implements Serializable {
         this.iDUser = iDUser;
     }
 
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     @XmlTransient
     public List<Incart> getIncartList() {
@@ -112,14 +118,6 @@ public class Cart implements Serializable {
     @Override
     public String toString() {
         return "rs.ac.bg.etf.is1.entities.Cart[ iDUser=" + iDUser + " ]";
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
     }
     
 }

@@ -36,18 +36,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")})
 public class Category implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "Name")
-    private String name;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDCategory")
     private Integer iDCategory;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "Name")
+    private String name;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "category")
     private Subcategory subcategory;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDSubcategory")
@@ -75,6 +74,13 @@ public class Category implements Serializable {
         this.iDCategory = iDCategory;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Subcategory getSubcategory() {
         return subcategory;
@@ -125,14 +131,6 @@ public class Category implements Serializable {
     @Override
     public String toString() {
         return "rs.ac.bg.etf.is1.entities.Category[ iDCategory=" + iDCategory + " ]";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
     
 }

@@ -10,7 +10,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import rs.ac.bg.etf.is1.client.rest.User;
+import rs.ac.bg.etf.is1.client.rest.UserRest;
 
 /**
  *
@@ -37,14 +37,14 @@ public class GetUsersRequest extends Request {
         
         System.out.println(response.toString());                                      
         System.out.println(response.getEntity());                  
-        List<User> users = (List<User>)response.readEntity(List.class);
+        List<UserRest> users = (List<UserRest>)response.readEntity(List.class);
         
 //        List<User> users = client.target("http://localhost:8080/Server/users")
 //                .path("getAllUsers")
 //                .request(MediaType.APPLICATION_XML)
 //                .get(new GenericType<List<User>>(){});
         
-        for(User user: users){
+        for(UserRest user: users){
             System.out.println(user.toString() + "/n");
         }
         

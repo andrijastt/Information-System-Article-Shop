@@ -53,7 +53,7 @@ public class Transaction implements Serializable {
     private int totalPrice;
     @JoinColumn(name = "IDOrder", referencedColumnName = "IDOrder")
     @ManyToOne(optional = false)
-    private Order1 iDOrder;
+    private Orders iDOrder;
 
     public Transaction() {
     }
@@ -92,11 +92,11 @@ public class Transaction implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public Order1 getIDOrder() {
+    public Orders getIDOrder() {
         return iDOrder;
     }
 
-    public void setIDOrder(Order1 iDOrder) {
+    public void setIDOrder(Orders iDOrder) {
         this.iDOrder = iDOrder;
     }
 

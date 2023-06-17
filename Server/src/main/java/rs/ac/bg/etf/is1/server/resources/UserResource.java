@@ -13,9 +13,6 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import rs.ac.bg.etf.is1.commands.AddMoneyToUserCommand;
 import rs.ac.bg.etf.is1.commands.ChangeAddressAndCityForUser;
@@ -25,6 +22,7 @@ import rs.ac.bg.etf.is1.entities.User;
 import rs.ac.bg.etf.is1.responses.DataResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
+import rs.ac.bg.etf.is1.rest.UserRest;
 import rs.ac.bg.etf.is1.server.JMSCommunicator;
 
 /**
@@ -83,14 +81,20 @@ public class UserResource {
     }
     
     @GET
-    @Path("getAllUsers")
-    @Produces(MediaType.TEXT_XML)
+    @Path("getAllUsers")    
     public Response getAllUsers(){        
         GetUsersCommand gus = new GetUsersCommand();
         JMSResponse response = comm.exchange(gus);        
         if(response instanceof DataResponse){
             DataResponse<List<User>> dataResponse = (DataResponse<List<User>>) response;
-            List<User> users = dataResponse.getData();
+            List<UserRest> users = new ArrayList<>();
+           
+            for(User user: dataResponse.getData()){                
+                UserRest userrest = new UserRest(user.getIDUser(), user.getUsername(), user.getPassword(), user.getName(), 
+                        user.getLastname(), user.getAddress(), user.getIDCity().getIDCity(), user.getMoney());
+                users.add(userrest);
+            }
+            
             return Response.ok(users).build();
 //            return dataResponse.getData();
         }        
