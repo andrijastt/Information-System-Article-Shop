@@ -12,18 +12,18 @@ public class CreateArticleCommand extends Command {
 
     private final String name;
     private final String description;
-    private final int price;
+    private final String price;
     private final int discount;
-    private final String username;
-    private final String categoryName;
+    private final String IDUser;
+    private final String IDCategory;
 
-    public CreateArticleCommand(String name, String description, int price, int discount, String username, String categoryName) {
+    public CreateArticleCommand(String name, String description, String price, int discount, String IDUser, String IDCategory) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.discount = discount;
-        this.username = username;
-        this.categoryName = categoryName;
+        this.IDUser = IDUser;
+        this.IDCategory = IDCategory;
     }
 
     public String getName() {
@@ -34,7 +34,7 @@ public class CreateArticleCommand extends Command {
         return description;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
@@ -42,12 +42,12 @@ public class CreateArticleCommand extends Command {
         return discount;
     }
 
-    public String getUsername() {
-        return username;
+    public String getIDUser() {
+        return IDUser;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getIDCategory() {
+        return IDCategory;
     }    
     
     @Override
