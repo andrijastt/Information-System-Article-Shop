@@ -54,11 +54,9 @@ public class CityResource {
     
     @GET
     @Path("getAllCities")
-    public List<City> getAllCities(){
-        
-        GetCitiesCommand gus = new GetCitiesCommand();
-        JMSResponse response = comm.exchange(gus);
-
+    public List<City> getAllCities(){        
+        GetCitiesCommand gcc = new GetCitiesCommand();
+        JMSResponse response = comm.exchange(gcc);
         if(response instanceof DataResponse){
             DataResponse<List<City>> dataResponse = (DataResponse<List<City>>) response;
             return dataResponse.getData();

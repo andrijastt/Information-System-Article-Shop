@@ -82,11 +82,9 @@ public class UserResource {
     
     @GET
     @Path("getAllUsers")
-    public List<User> getAllUsers(){
-        
+    public List<User> getAllUsers(){        
         GetUsersCommand gus = new GetUsersCommand();
-        JMSResponse response = comm.exchange(gus);
-        
+        JMSResponse response = comm.exchange(gus);        
         if(response instanceof DataResponse){
             DataResponse<List<User>> dataResponse = (DataResponse<List<User>>) response;
             return dataResponse.getData();
