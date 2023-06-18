@@ -28,8 +28,8 @@ public class RemoveArticleAmountInCartRequest extends Request {
     @Override
     public Response send() {
         
-        String IDUser = this.readString("IDUser that is buying");
-        String IDArticle = this.readString("IDArticle that user wants to buy");
+        String IDUser = this.readString("IDUser that is wants to remove items");
+        String IDArticle = this.readString("IDArticle that user wants to remove");
         String amount = this.readString("Amount");
         
         MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();

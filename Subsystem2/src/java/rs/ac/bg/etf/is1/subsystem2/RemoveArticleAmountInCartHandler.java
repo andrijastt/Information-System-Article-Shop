@@ -43,16 +43,19 @@ public class RemoveArticleAmountInCartHandler extends CommandHandler {
             return new FailedResponse(aaacc, "Article with ID " + aaacc.getIDArticle() + " doesn't exist!");
         }
         if(article.getIDUser() == user){
-            return new FailedResponse(aaacc, "User can't buy item from himself!");
+            return new FailedResponse(aaacc, "User can't remove item from himself!");
         }
         
         em.getTransaction().begin();
         int amount = Integer.parseInt(aaacc.getAmount());
         
-        List<Incart> incart = em.createQuery("Select i from Incart i where iDUser = :IDUser and iDArticle = :IDArticle").setParameter("IDUser", user).setParameter("IDArticle", article).getResultList();
+        List<Incart> incart = em.createQuery("Select i from Incart i where i.incartPK.iDUser = :IDUser and i.incartPK.iDArticle = :IDArticle")
+                .setParameter("IDUser", IDUser)
+                .setParameter("IDArticle", IDArticle)
+                .getResultList();
         
         Incart incartItem = null;
-        Cart cart = em.find(Cart.class, user);
+        Cart cart = em.find(Cart.class, IDUser);
         if(!incart.isEmpty()){            
             incartItem = incart.get(0);            
             if(incartItem.getAmount() - amount <= 0){
