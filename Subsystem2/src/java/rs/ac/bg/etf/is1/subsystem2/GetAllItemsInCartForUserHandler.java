@@ -38,7 +38,7 @@ public class GetAllItemsInCartForUserHandler extends CommandHandler {
             return new FailedResponse(gaiicfuc, "User with ID " + gaiicfuc.getIDUser() + " doesn't exist");
         }
         
-        List<Incart> incart = em.createNamedQuery("Incart.findByIDUser").setParameter("iDUser", user).getResultList();        
+        List<Incart> incart = em.createNamedQuery("Incart.findByIDUser").setParameter("iDUser", IDUser).getResultList();        
         List<Article> articles = new ArrayList<>();        
         for(Incart cart: incart){
             articles.add(cart.getArticle());                        

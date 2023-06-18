@@ -37,7 +37,7 @@ public class GetAllArticlesThatUserSellsHandler extends CommandHandler {
             return new FailedResponse(gaatusc, "User with ID " + gaatusc.getIDUser() + " doesn't exist");
         }
         
-        List<Article> articles = em.createQuery("Select a from Article where IDUser = :id").setParameter("id", user).getResultList();
+        List<Article> articles = em.createQuery("Select a from Article a where a.iDUser = :id").setParameter("id", user).getResultList();       
         return new DataResponse(gaatusc, articles);
         
     }
