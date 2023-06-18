@@ -6,12 +6,11 @@ package rs.ac.bg.etf.is1.subsystem2;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import rs.ac.bg.etf.is1.commands.AddArticleAmountInCartCommand;
 import rs.ac.bg.etf.is1.commands.Command;
+import rs.ac.bg.etf.is1.commands.RemoveArticleAmountInCartCommand;
 import rs.ac.bg.etf.is1.entities.Article;
 import rs.ac.bg.etf.is1.entities.Cart;
 import rs.ac.bg.etf.is1.entities.Incart;
-import rs.ac.bg.etf.is1.entities.IncartPK;
 import rs.ac.bg.etf.is1.entities.User;
 import rs.ac.bg.etf.is1.responses.CommandHandler;
 import rs.ac.bg.etf.is1.responses.FailedResponse;
@@ -22,16 +21,16 @@ import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
  *
  * @author stoja
  */
-public class AddArticleAmountInCartHandler extends CommandHandler {
+public class RemoveArticleAmountInCartHandler extends CommandHandler {
 
-    public AddArticleAmountInCartHandler(EntityManager em) {
+    public RemoveArticleAmountInCartHandler(EntityManager em) {
         super(em);
     }
 
     @Override
     public JMSResponse handle(Command cmd) {
         
-        AddArticleAmountInCartCommand aaacc = (AddArticleAmountInCartCommand) cmd;
+        RemoveArticleAmountInCartCommand aaacc = (RemoveArticleAmountInCartCommand) cmd;
         int IDUser = Integer.parseInt(aaacc.getIDUser());
         User user = em.find(User.class, IDUser);
         if(user == null){
@@ -53,27 +52,24 @@ public class AddArticleAmountInCartHandler extends CommandHandler {
         List<Incart> incart = em.createQuery("Select i from Incart i where iDUser = :IDUser and iDArticle = :IDArticle").setParameter("IDUser", user).setParameter("IDArticle", article).getResultList();
         
         Incart incartItem = null;
-        if(!incart.isEmpty()){            
-            incartItem = incart.get(0);
-            incartItem.setAmount(incartItem.getAmount() + amount);            
-        } else {
-            incartItem = new Incart();
-            incartItem.setAmount(amount);
-            incartItem.setIncartPK(new IncartPK(IDUser, IDArticle));            
-        }
-        
-        if(incartItem == null) return new FailedResponse(aaacc, "Error while updating/inserting!");
-        
-        em.persist(incartItem);
-        em.flush();
-
         Cart cart = em.find(Cart.class, user);
-        cart.setTotalPrice(cart.getTotalPrice() + amount * article.getPrice() * (100 - article.getDiscount()) / 100);
-                        
+        if(!incart.isEmpty()){            
+            incartItem = incart.get(0);            
+            if(incartItem.getAmount() - amount <= 0){
+                cart.setTotalPrice(cart.getTotalPrice() - incartItem.getAmount() * article.getPrice() * (100 - article.getDiscount()) / 100);
+                em.remove(incartItem);                
+            } else {
+                cart.setTotalPrice(cart.getTotalPrice() - amount * article.getPrice() * (100 - article.getDiscount()) / 100);
+                incartItem.setAmount(incartItem.getAmount() - amount);
+            }                        
+        } else {
+            return new FailedResponse(aaacc, "There is no item to be removed!");
+        }                                                     
+        
         em.getTransaction().commit();
         em.clear();                
         
-        return new SuccessfulResponse(aaacc);
+        return new SuccessfulResponse(aaacc);                
     }
     
 }

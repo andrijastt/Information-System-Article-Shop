@@ -15,9 +15,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
+import rs.ac.bg.etf.is1.commands.AddArticleAmountInCartCommand;
 import rs.ac.bg.etf.is1.commands.ChangeArticlePriceCommand;
+import rs.ac.bg.etf.is1.commands.ChangeDiscountForArticleCommand;
 import rs.ac.bg.etf.is1.commands.CreateArticleCommand;
 import rs.ac.bg.etf.is1.commands.GetAllArticlesThatUserSellsCommand;
+import rs.ac.bg.etf.is1.commands.GetAllItemsInCartForUserCommand;
+import rs.ac.bg.etf.is1.commands.RemoveArticleAmountInCartCommand;
 import rs.ac.bg.etf.is1.entities.Article;
 import rs.ac.bg.etf.is1.responses.DataResponse;
 import rs.ac.bg.etf.is1.responses.FailedResponse;
@@ -66,10 +70,68 @@ public class ArticleResource {
             return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
         }
         
+        @POST
+        @Path("changeDiscountForArticle")
+        public Response changeDiscountForArticle(@FormParam("IDUser") String IDUser, @FormParam("IDArticle") String IDArticle, @FormParam("discount") String discount){
+            ChangeDiscountForArticleCommand cdfac = new ChangeDiscountForArticleCommand(discount, IDUser, IDArticle);
+            JMSResponse response = comm.exchange(cdfac);
+            if(response instanceof SuccessfulResponse){
+                SuccessfulResponse sr = (SuccessfulResponse) response;
+                return Response.status(Response.Status.OK).entity(sr.toString()).build();
+            }
+            FailedResponse fr = (FailedResponse) response;
+            return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
+        }
+        
+        @POST
+        @Path("addArticleAmountInCart")
+        public Response addArticleAmountInCart(@FormParam("IDUser") String IDUser, @FormParam("IDArticle") String IDArticle, @FormParam("amount") String amount){
+            AddArticleAmountInCartCommand aaaicc = new AddArticleAmountInCartCommand(IDUser, amount, IDArticle);
+            JMSResponse response = comm.exchange(aaaicc);
+            if(response instanceof SuccessfulResponse){
+                SuccessfulResponse sr = (SuccessfulResponse) response;
+                return Response.status(Response.Status.OK).entity(sr.toString()).build();
+            }
+            FailedResponse fr = (FailedResponse) response;
+            return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
+        }
+        
+        @POST
+        @Path("removeArticleAmountInCart")
+        public Response removeArticleAmountInCart(@FormParam("IDUser") String IDUser, @FormParam("IDArticle") String IDArticle, @FormParam("amount") String amount){
+            RemoveArticleAmountInCartCommand raaaicc = new RemoveArticleAmountInCartCommand(IDUser, IDArticle, amount);
+            JMSResponse response = comm.exchange(raaaicc);
+            if(response instanceof SuccessfulResponse){
+                SuccessfulResponse sr = (SuccessfulResponse) response;
+                return Response.status(Response.Status.OK).entity(sr.toString()).build();
+            }
+            FailedResponse fr = (FailedResponse) response;
+            return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
+        }
+        
         @GET
         @Path("getAllArticlesThatUserSells/{IDUser}")
         public Response getAllArticlesThatUserSells(@PathParam("IDUser") String IDUser){
             GetAllArticlesThatUserSellsCommand gaatusc = new GetAllArticlesThatUserSellsCommand(IDUser);
+            JMSResponse response = comm.exchange(gaatusc);
+            if(response instanceof DataResponse){
+                DataResponse<List<Article>> dataresp = (DataResponse<List<Article>>) response;
+                List<ArticleRest> articles = new ArrayList<>();
+                for(Article article: dataresp.getData()){
+                    ArticleRest articleRest = new ArticleRest(article.getIDArticle(), article.getName(), article.getDescription()
+                            , article.getPrice(), article.getDiscount(), article.getIDUser().getIDUser(), article.getIDCategory().getIDCategory());
+                    articles.add(articleRest);
+                }
+                return Response.status(Response.Status.OK).entity(articles).build();
+            }
+            FailedResponse fr = (FailedResponse) response;
+            return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
+        }
+        
+        @GET
+        @Path("getAllItemsInCartForUser/{IDUser}")
+        public Response getAllItemsInCartForUser(@PathParam("IDUser") String IDUser){
+            GetAllItemsInCartForUserCommand gaatusc = new GetAllItemsInCartForUserCommand(IDUser);
             JMSResponse response = comm.exchange(gaatusc);
             if(response instanceof DataResponse){
                 DataResponse<List<Article>> dataresp = (DataResponse<List<Article>>) response;

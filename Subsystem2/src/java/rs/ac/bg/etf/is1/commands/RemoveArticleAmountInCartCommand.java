@@ -10,25 +10,25 @@ package rs.ac.bg.etf.is1.commands;
  */
 public class RemoveArticleAmountInCartCommand extends Command {
 
-    final private String username;
-    final private int IDArticle;
-    final private int amount;        
+    final private String IDUser;
+    final private String IDArticle;
+    final private String amount;        
 
-    public RemoveArticleAmountInCartCommand(String username, int IDArticle, int amount) {
-        this.username = username;
+    public RemoveArticleAmountInCartCommand(String IDUser, String IDArticle, String amount) {
+        this.IDUser = IDUser;
         this.IDArticle = IDArticle;
         this.amount = amount;
     }
 
-    public String getUsername() {
-        return username;
+    public String getIDUser() {
+        return IDUser;
     }   
 
-    public int getIDArticle() {
+    public String getIDArticle() {
         return IDArticle;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
     }
     
