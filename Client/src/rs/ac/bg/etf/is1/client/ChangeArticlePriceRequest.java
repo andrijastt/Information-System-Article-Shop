@@ -37,7 +37,8 @@ public class ChangeArticlePriceRequest extends Request {
         map.add("IDArticle", IDArticle);
         map.add("IDUser", IDUser);
         
-        Response response = client.target("http://localhost:8080/Server/article/changeArticlePrice")
+        Response response = client.target("http://localhost:8080/Server/article")
+                .path("changeArticlePrice")
                 .request()
                 .post(Entity.form(map));
         

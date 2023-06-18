@@ -56,10 +56,16 @@ public class Main {
                     req.send();
                     break;
                 case 8:
+                    req =  new ChangeDiscountForArticleRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 9:
+                    req =  new AddArticleAmountInCartRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 10:
+                    req =  new RemoveArticleAmountInCartRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 11:
                     break;
@@ -76,8 +82,12 @@ public class Main {
                     req.send();
                     break;
                 case 15:
+                    req =  new GetAllArticlesThatUserSellsRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 16:
+                    req =  new GetAllItemsInCartForUserRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 17:
                     break;

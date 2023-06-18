@@ -37,7 +37,7 @@ public class ChangeArticlePriceHandler extends CommandHandler {
         }
         
         int IDArticle = Integer.parseInt(capc.getIDArticle());
-        List<Article> articles = em.createQuery("Select a from Article a where IDarticle = :id and IDUser = :id1").setParameter("id", IDArticle).setParameter("id1", user).getResultList();
+        List<Article> articles = em.createQuery("Select a from Article a where a.iDarticle = :id and a.iDUser = :id1").setParameter("id", IDArticle).setParameter("id1", user).getResultList();
         
         if(articles.isEmpty()){
             return new FailedResponse(capc, "User with ID " + capc.getIDUser() + " doesn't sell article with ID " + capc.getIDArticle());

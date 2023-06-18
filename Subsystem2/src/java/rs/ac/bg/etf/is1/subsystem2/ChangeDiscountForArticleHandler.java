@@ -50,7 +50,7 @@ public class ChangeDiscountForArticleHandler extends CommandHandler {
         
         // ovde moze da se desi situacija da popust artikla moze da se promeni dok su artikli u korpi, pa ih zato azuriramo tako sto smanjujemo staru cenu i dodajemo novu
         em.getTransaction().begin();
-        List<Incart> incart = em.createNamedQuery("Incart.findByIDArticle").setParameter("iDArticle", article).getResultList();
+        List<Incart> incart = em.createNamedQuery("Incart.findByIDArticle").setParameter("iDArticle", article.getIDArticle()).getResultList();
         for(Incart item: incart){
             Cart cart = em.find(Cart.class, item.getIncartPK());
             cart.setTotalPrice(cart.getTotalPrice() -item.getAmount() * (100 - article.getDiscount()) * article.getPrice() / 100);
