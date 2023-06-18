@@ -72,6 +72,8 @@ public class Main {
                     req.send();
                     break;
                 case 14:
+                    req = new GetCategoriesRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 15:
                     break;

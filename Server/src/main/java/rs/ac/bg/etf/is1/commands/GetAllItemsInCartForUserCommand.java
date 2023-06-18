@@ -10,14 +10,14 @@ package rs.ac.bg.etf.is1.commands;
  */
 public class GetAllItemsInCartForUserCommand extends Command {
     
-    private final String username;
+    private final String IDUser;
 
-    public GetAllItemsInCartForUserCommand(String username) {
-        this.username = username;
+    public GetAllItemsInCartForUserCommand(String IDUser) {
+        this.IDUser = IDUser;
     }
 
-    public String getUsername() {
-        return username;
+    public String getIDUser() {
+        return IDUser;
     }
     
     @Override

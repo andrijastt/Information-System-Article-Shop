@@ -50,9 +50,12 @@ public class Subsystem2 {
         map.put(Command.Type.CREATE_CATEGORY, new CreateCategoryHandler(em));
         map.put(Command.Type.CREATE_ARTICLE, new CreateArticleHandler(em));
         map.put(Command.Type.CHANGE_ARTICLE_PRICE, new ChangeArticlePriceHandler(em));
-//        map.put(Command.Type.CHANGE_ADDRESS_AND_CITY_FOR_USER, new ChangeAddressAndCityForUserHandler(em));
-//        map.put(Command.Type.GET_CITIES, new GetCitiesHandler(em));
+        map.put(Command.Type.CHANGE_DISCOUNT_FOR_ARTICLE, new ChangeDiscountForArticleHandler(em));
+        map.put(Command.Type.ADD_ARTICLE_AMOUNT_IN_CART, new AddArticleAmountInCartHandler(em));
 //        map.put(Command.Type.GET_USERS, new GetUsersHandler(em));
+        map.put(Command.Type.GET_CATEGORIES, new GetCategoriesHandler(em));
+        map.put(Command.Type.GET_ALL_ARTICLES_THAT_USER_SELLS, new GetAllArticlesThatUserSellsHandler(em));
+        map.put(Command.Type.GET_ALL_ITEMS_IN_CART_FOR_USER, new GetAllItemsInCartForUserHandler(em));
         return map;
     }
     

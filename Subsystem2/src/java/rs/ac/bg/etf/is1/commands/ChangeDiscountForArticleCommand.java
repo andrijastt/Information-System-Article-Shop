@@ -8,27 +8,27 @@ package rs.ac.bg.etf.is1.commands;
  *
  * @author stoja
  */
-public class ChangeDiscountForArticle extends Command {
+public class ChangeDiscountForArticleCommand extends Command {
 
-    private final int discount;
-    private final String username;
-    private final int IDArticle;   
+    private final String discount;
+    private final String IDUser;
+    private final String IDArticle;   
 
-    public ChangeDiscountForArticle(int discount, String username, int IDArticle) {
+    public ChangeDiscountForArticleCommand(String discount, String IDUser, String IDArticle) {
         this.discount = discount;
-        this.username = username;
+        this.IDUser = IDUser;
         this.IDArticle = IDArticle;
     }        
 
-    public int getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
-    public String getUsername() {
-        return username;
+    public String getIDUser() {
+        return IDUser;
     }
 
-    public int getIDArticle() {
+    public String getIDArticle() {
         return IDArticle;
     }
     
