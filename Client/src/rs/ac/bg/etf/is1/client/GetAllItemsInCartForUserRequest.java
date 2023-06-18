@@ -4,7 +4,6 @@
  */
 package rs.ac.bg.etf.is1.client;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Scanner;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import rs.ac.bg.etf.is1.client.rest.ArticleRest;
+import rs.ac.bg.etf.is1.client.rest.InCartRest;
 
 /**
  *
@@ -45,9 +44,9 @@ public class GetAllItemsInCartForUserRequest extends Request {
             System.out.println(temp);
             return response;
         }        
-        List<ArticleRest> articles = Arrays.asList(new GsonBuilder().create().fromJson(temp, ArticleRest[].class));
+        List<InCartRest> articles = Arrays.asList(new GsonBuilder().create().fromJson(temp, InCartRest[].class));
         
-        for(ArticleRest article: articles){
+        for(InCartRest article: articles){
             System.out.println(article.toString() + "\n");
         }        
         return response;                

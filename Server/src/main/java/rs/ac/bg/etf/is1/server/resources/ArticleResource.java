@@ -23,11 +23,13 @@ import rs.ac.bg.etf.is1.commands.GetAllArticlesThatUserSellsCommand;
 import rs.ac.bg.etf.is1.commands.GetAllItemsInCartForUserCommand;
 import rs.ac.bg.etf.is1.commands.RemoveArticleAmountInCartCommand;
 import rs.ac.bg.etf.is1.entities.Article;
+import rs.ac.bg.etf.is1.entities.Incart;
 import rs.ac.bg.etf.is1.responses.DataResponse;
 import rs.ac.bg.etf.is1.responses.FailedResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
 import rs.ac.bg.etf.is1.rest.ArticleRest;
+import rs.ac.bg.etf.is1.rest.InCartRest;
 import rs.ac.bg.etf.is1.server.JMSCommunicator;
 
 /**
@@ -134,12 +136,14 @@ public class ArticleResource {
             GetAllItemsInCartForUserCommand gaatusc = new GetAllItemsInCartForUserCommand(IDUser);
             JMSResponse response = comm.exchange(gaatusc);
             if(response instanceof DataResponse){
-                DataResponse<List<Article>> dataresp = (DataResponse<List<Article>>) response;
-                List<ArticleRest> articles = new ArrayList<>();
-                for(Article article: dataresp.getData()){
-                    ArticleRest articleRest = new ArticleRest(article.getIDArticle(), article.getName(), article.getDescription()
-                            , article.getPrice(), article.getDiscount(), article.getIDUser().getIDUser(), article.getIDCategory().getIDCategory());
-                    articles.add(articleRest);
+                DataResponse<List<Incart>> dataresp = (DataResponse<List<Incart>>) response;
+                List<InCartRest> articles = new ArrayList<>();
+                for(Incart article: dataresp.getData()){
+//                    ArticleRest articleRest = new ArticleRest(article.getIDArticle(), article.getName(), article.getDescription()
+//                            , article.getPrice(), article.getDiscount(), article.getIDUser().getIDUser(), article.getIDCategory().getIDCategory());
+//                    articles.add(articleRest);
+                    InCartRest icr = new InCartRest(article.getIncartPK().getIDUser(), article.getIncartPK().getIDArticle(), article.getAmount());
+                    articles.add(icr);
                 }
                 return Response.status(Response.Status.OK).entity(articles).build();
             }

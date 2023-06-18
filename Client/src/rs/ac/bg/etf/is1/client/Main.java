@@ -19,14 +19,36 @@ public class Main {
         Client client = ClientBuilder.newClient();
 
         while(true){
-            
-            System.out.println("Enter number for option (1 - 19)");
-            
+                        
+            System.out.println("0. Exit");
+            System.out.println("1. Create City");
+            System.out.println("2. Create user");
+            System.out.println("3. Add money to user");
+            System.out.println("4. Change address and city for user");
+            System.out.println("5. Create category");
+            System.out.println("6. Create article");
+            System.out.println("7. Change article price");
+            System.out.println("8. Change discount for article");
+            System.out.println("9. Add article amount in cart");
+            System.out.println("10. Remove article amount in cart");
+            System.out.println("11. Paymnet process");
+            System.out.println("12. Get cities");
+            System.out.println("13. Get users");
+            System.out.println("14. Get categories");
+            System.out.println("15. Get all articles that user sells");
+            System.out.println("16. Get all items in car for user");
+            System.out.println("17. Get all orders for user");
+            System.out.println("18. Get all orders");
+            System.out.println("19. Get all transactions");
+            System.out.println("Enter number for option (0 - 19)");
             Scanner scanner = new Scanner(System.in);
             
             int number = Integer.parseInt(scanner.nextLine());
             Request req;
-            switch(number){                                
+            switch(number){       
+                case 0:
+                    System.out.println("Exiting");                    
+                    break;
                 case 1:
                     req =  new CreateCityRequest(client, new Scanner(System.in));
                     req.send();
@@ -102,15 +124,14 @@ public class Main {
                 case 19:
                     req =  new GetAllTransactionsRequest(client, new Scanner(System.in));
                     req.send();
-                    break;
-                
+                    break;                                
                 default:
                     System.out.println("Wrong number input! Try again.");                    
                     break;
             }                        
-
+            if(number == 0) break;
         }
-//        client.close();
+        client.close();
     }
     
 }

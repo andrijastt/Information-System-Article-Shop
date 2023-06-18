@@ -39,11 +39,13 @@ public class GetAllItemsInCartForUserHandler extends CommandHandler {
         }
         
         List<Incart> incart = em.createNamedQuery("Incart.findByIDUser").setParameter("iDUser", IDUser).getResultList();        
-        List<Article> articles = new ArrayList<>();        
-        for(Incart cart: incart){
-            articles.add(cart.getArticle());                        
-        }
-        return new DataResponse(gaiicfuc, articles);        
+        return new DataResponse(gaiicfuc, incart);        
+
+//        List<Article> articles = new ArrayList<>();        
+//        for(Incart cart: incart){
+//            articles.add(cart.getArticle());                        
+//        }
+//        return new DataResponse(gaiicfuc, articles);        
     }
     
 }

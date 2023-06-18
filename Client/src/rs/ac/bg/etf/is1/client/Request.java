@@ -24,11 +24,7 @@ public abstract class Request {
         this.client = client;
         this.scanner = scanner;
     }     
-    
-    protected int readInt(String prompt) {
-        System.out.println(prompt + ":");
-        return Integer.parseInt(scanner.nextLine());
-    }
+       
     protected String readString(String prompt) {
         System.out.println(prompt + ":");
         return scanner.nextLine();
