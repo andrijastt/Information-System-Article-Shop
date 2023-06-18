@@ -52,7 +52,7 @@ public class ChangeDiscountForArticleHandler extends CommandHandler {
         em.getTransaction().begin();
         List<Incart> incart = em.createNamedQuery("Incart.findByIDArticle").setParameter("iDArticle", article.getIDArticle()).getResultList();
         for(Incart item: incart){
-            Cart cart = em.find(Cart.class, item.getIncartPK());
+            Cart cart = em.find(Cart.class, item.getIncartPK().getIDUser());
             cart.setTotalPrice(cart.getTotalPrice() -item.getAmount() * (100 - article.getDiscount()) * article.getPrice() / 100);
         }
         
@@ -60,7 +60,7 @@ public class ChangeDiscountForArticleHandler extends CommandHandler {
         article.setDiscount(discount);                
         
         for(Incart item: incart){
-            Cart cart = em.find(Cart.class, item.getIncartPK());
+            Cart cart = em.find(Cart.class, item.getIncartPK().getIDUser());
             cart.setTotalPrice(cart.getTotalPrice() + item.getAmount() * (100 - article.getDiscount()) * article.getPrice() / 100);
         }
         

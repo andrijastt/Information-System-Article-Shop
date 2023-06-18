@@ -50,7 +50,10 @@ public class AddArticleAmountInCartHandler extends CommandHandler {
         em.getTransaction().begin();
         int amount = Integer.parseInt(aaacc.getAmount());
         
-        List<Incart> incart = em.createQuery("Select i from Incart i where iDUser = :IDUser and iDArticle = :IDArticle").setParameter("IDUser", user).setParameter("IDArticle", article).getResultList();
+        List<Incart> incart = em.createQuery("Select i from Incart i where i.incartPK.iDUser = :IDUser and i.incartPK.iDArticle = :IDArticle")
+                .setParameter("IDUser", IDUser)
+                .setParameter("IDArticle", IDArticle)
+                .getResultList();
         
         Incart incartItem = null;
         if(!incart.isEmpty()){            
@@ -67,7 +70,7 @@ public class AddArticleAmountInCartHandler extends CommandHandler {
         em.persist(incartItem);
         em.flush();
 
-        Cart cart = em.find(Cart.class, user);
+        Cart cart = em.find(Cart.class, IDUser);
         cart.setTotalPrice(cart.getTotalPrice() + amount * article.getPrice() * (100 - article.getDiscount()) / 100);
                         
         em.getTransaction().commit();
