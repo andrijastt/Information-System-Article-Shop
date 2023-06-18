@@ -12,35 +12,35 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import rs.ac.bg.etf.is1.client.rest.CategoryRest;
+import rs.ac.bg.etf.is1.client.rest.TransactionRest;
 
 /**
  *
  * @author stoja
  */
-public class GetCategoriesRequest extends Request {
+public class GetAllTransactionsRequest extends Request {
 
-    public GetCategoriesRequest(Client client, Scanner scanner) {
+    public GetAllTransactionsRequest(Client client, Scanner scanner) {
         super(client, scanner);
     }
 
     @Override
     public String name() {
-        return "Get cateogories request";
+        return "Get all transaciotns request";
     }
 
     @Override
     public Response send() {
         
-        Response response = client.target("http://localhost:8080/Server/category")
-                .path("getCategories")
+        Response response = client.target("http://localhost:8080/Server/transaction/getAllTransactions")
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .get();                        
+                .get();
         
         String temp = response.readEntity(String.class);                               
-        List<CategoryRest> categories = Arrays.asList(new GsonBuilder().create().fromJson(temp, CategoryRest[].class));
+        List<TransactionRest> transactions = Arrays.asList(new GsonBuilder().create().fromJson(temp, TransactionRest[].class));
         
-        for(CategoryRest category: categories){
-            System.out.println(category.toString() + "\n");
+        for(TransactionRest trasnsaction: transactions){
+            System.out.println(trasnsaction.toString() + "\n");
         }        
         return response;                
     }

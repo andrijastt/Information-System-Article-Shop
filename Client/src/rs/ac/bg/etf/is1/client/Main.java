@@ -68,6 +68,8 @@ public class Main {
                     req.send();
                     break;
                 case 11:
+                    req =  new PaymentProcessRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 12:
                     req = new GetCitiesRequest(client, new Scanner(System.in));
@@ -98,6 +100,8 @@ public class Main {
                     req.send();
                     break;                    
                 case 19:
+                    req =  new GetAllTransactionsRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 
                 default:
