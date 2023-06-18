@@ -44,7 +44,7 @@ public class Subsystem3 {
     private static final Map<Command.Type, CommandHandler> handlers = assignHandlers();
     
     private static Map<Command.Type, CommandHandler> assignHandlers(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Subsystem2PU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Subsystem3PU");
         EntityManager em = emf.createEntityManager();
         Map<Command.Type, CommandHandler> map = new EnumMap<>(Command.Type.class);
         //        map.put(Command.Type.CHANGE_DISCOUNT_FOR_ARTICLE, new ChangeDiscountForArticleHandler(em));      

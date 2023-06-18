@@ -90,9 +90,13 @@ public class Main {
                     req.send();
                     break;
                 case 17:
+                    req =  new GetAllOrdersForUserRequest(client, new Scanner(System.in));
+                    req.send();
                     break;
                 case 18:
-                    break;
+                    req =  new GetAllOrdersRequest(client, new Scanner(System.in));
+                    req.send();
+                    break;                    
                 case 19:
                     break;
                 
