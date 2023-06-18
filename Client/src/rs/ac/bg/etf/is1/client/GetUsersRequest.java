@@ -38,7 +38,10 @@ public class GetUsersRequest extends Request {
                 .get();                        
         
         String temp = response.readEntity(String.class);                       
-        Gson gson = new Gson();        
+        if(temp.contains("Failed Response")){
+            System.out.println(temp);
+            return response;
+        }
         List<UserRest> users = Arrays.asList(new GsonBuilder().create().fromJson(temp, UserRest[].class));
         
         for(UserRest user: users){

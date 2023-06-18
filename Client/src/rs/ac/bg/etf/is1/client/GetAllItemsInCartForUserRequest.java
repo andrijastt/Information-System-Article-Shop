@@ -35,13 +35,16 @@ public class GetAllItemsInCartForUserRequest extends Request {
         String IDUser = this.readString("IDUser");
         
         Response response = client.target("http://localhost:8080/Server/article/getAllItemsInCartForUser").
-                path("/{IDUser}")
+                path("{IDUser}")
                 .resolveTemplate("IDUser", IDUser)
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();
         
         String temp = response.readEntity(String.class);                       
-        Gson gson = new Gson();        
+        if(temp.contains("Failed Response")){
+            System.out.println(temp);
+            return response;
+        }        
         List<ArticleRest> articles = Arrays.asList(new GsonBuilder().create().fromJson(temp, ArticleRest[].class));
         
         for(ArticleRest article: articles){

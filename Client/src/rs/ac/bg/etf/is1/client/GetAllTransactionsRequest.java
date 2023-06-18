@@ -36,7 +36,11 @@ public class GetAllTransactionsRequest extends Request {
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();
         
-        String temp = response.readEntity(String.class);                               
+        String temp = response.readEntity(String.class);
+        if(temp.contains("Failed Response")){
+            System.out.println(temp);
+            return response;
+        }
         List<TransactionRest> transactions = Arrays.asList(new GsonBuilder().create().fromJson(temp, TransactionRest[].class));
         
         for(TransactionRest trasnsaction: transactions){

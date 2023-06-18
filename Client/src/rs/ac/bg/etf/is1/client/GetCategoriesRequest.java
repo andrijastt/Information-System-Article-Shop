@@ -36,7 +36,11 @@ public class GetCategoriesRequest extends Request {
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();                        
         
-        String temp = response.readEntity(String.class);                               
+        String temp = response.readEntity(String.class);
+        if(temp.contains("Failed Response")){
+            System.out.println(temp);
+            return response;
+        }
         List<CategoryRest> categories = Arrays.asList(new GsonBuilder().create().fromJson(temp, CategoryRest[].class));
         
         for(CategoryRest category: categories){

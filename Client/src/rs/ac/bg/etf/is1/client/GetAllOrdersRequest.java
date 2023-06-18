@@ -35,7 +35,11 @@ public class GetAllOrdersRequest extends Request {
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();
         
-        String temp = response.readEntity(String.class);                               
+        String temp = response.readEntity(String.class);         
+        if(temp.contains("Failed Response")){
+            System.out.println(temp);
+            return response;
+        }
         List<OrderRest> orders = Arrays.asList(new GsonBuilder().create().fromJson(temp, OrderRest[].class));
         
         for(OrderRest order: orders){

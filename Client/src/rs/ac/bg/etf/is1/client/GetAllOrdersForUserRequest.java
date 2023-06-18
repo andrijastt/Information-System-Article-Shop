@@ -41,7 +41,10 @@ public class GetAllOrdersForUserRequest extends Request {
                 .get();
         
         String temp = response.readEntity(String.class);                       
-        Gson gson = new Gson();        
+        if(temp.contains("Failed Response")){
+            System.out.println(temp);
+            return response;
+        }     
         List<OrderRest> orders = Arrays.asList(new GsonBuilder().create().fromJson(temp, OrderRest[].class));
         
         for(OrderRest order: orders){

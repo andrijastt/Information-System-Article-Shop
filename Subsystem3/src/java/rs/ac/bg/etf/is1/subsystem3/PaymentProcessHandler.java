@@ -71,7 +71,8 @@ public class PaymentProcessHandler extends CommandHandler {
             newItem.setAmount(item.getAmount());
             newItem.setTotalArticlePrice(item.getAmount() * article.getPrice() * (100 - article.getDiscount()) / 100);
             newItem.setIDOrder(order);
-            newItem.setIDArticle(article);
+            newItem.setIDArticle(article);            
+            article.getIDUser().setMoney(article.getIDUser().getMoney() + newItem.getTotalArticlePrice());
             em.persist(newItem);
             em.remove(item);
         }

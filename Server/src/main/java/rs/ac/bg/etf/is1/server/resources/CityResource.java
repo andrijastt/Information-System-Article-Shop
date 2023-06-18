@@ -21,6 +21,7 @@ import rs.ac.bg.etf.is1.commands.Command;
 import rs.ac.bg.etf.is1.commands.CreateCityCommand;
 import rs.ac.bg.etf.is1.commands.GetCitiesCommand;
 import rs.ac.bg.etf.is1.responses.DataResponse;
+import rs.ac.bg.etf.is1.responses.FailedResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
 import rs.ac.bg.etf.is1.rest.CityRest;
@@ -47,9 +48,11 @@ public class CityResource {
         JMSResponse response =  comm.exchange(ccc);
         
         if(response instanceof SuccessfulResponse){
-            return Response.status(Response.Status.CREATED).entity("City with name " + name + " created!").build();
+            SuccessfulResponse sr = (SuccessfulResponse) response;
+            return Response.status(Response.Status.CREATED).entity(sr.toString()).build();
         }        
-        return Response.status(Response.Status.BAD_REQUEST).entity("City with name " + name + " didn't create!").build();
+        FailedResponse fr = (FailedResponse) response;
+        return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
         
     }
     

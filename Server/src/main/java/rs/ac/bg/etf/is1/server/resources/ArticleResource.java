@@ -62,7 +62,6 @@ public class ArticleResource {
         public Response changeArticlePrice(@FormParam("IDUser") String IDUser, @FormParam("IDArticle") String IDArticle, @FormParam("price") String price){
             ChangeArticlePriceCommand capc = new ChangeArticlePriceCommand(price, IDUser, IDArticle);
             JMSResponse response = comm.exchange(capc);
-//            JMSResponse response = comm.exchange(new ChangeArticlePriceCommand(price, IDUser, IDArticle));
             if(response instanceof SuccessfulResponse){
                 SuccessfulResponse sr = (SuccessfulResponse) response;
                 return Response.status(Response.Status.OK).entity(sr.toString()).build();

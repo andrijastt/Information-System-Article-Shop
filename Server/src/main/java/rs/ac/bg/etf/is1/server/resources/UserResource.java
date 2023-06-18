@@ -22,6 +22,7 @@ import rs.ac.bg.etf.is1.commands.CreateUserCommand;
 import rs.ac.bg.etf.is1.commands.GetUsersCommand;
 import rs.ac.bg.etf.is1.entities.User;
 import rs.ac.bg.etf.is1.responses.DataResponse;
+import rs.ac.bg.etf.is1.responses.FailedResponse;
 import rs.ac.bg.etf.is1.responses.JMSResponse;
 import rs.ac.bg.etf.is1.responses.SuccessfulResponse;
 import rs.ac.bg.etf.is1.rest.UserRest;
@@ -50,9 +51,11 @@ public class UserResource {
         JMSResponse response =  comm.exchange(ccc);
         
         if(response instanceof SuccessfulResponse){
-            return Response.status(Response.Status.CREATED).entity("User created!").build();
+            SuccessfulResponse sr = (SuccessfulResponse) response;
+            return Response.status(Response.Status.CREATED).entity(sr.toString()).build();
         }        
-        return Response.status(Response.Status.BAD_REQUEST).entity("User with username is taken!").build();
+        FailedResponse fr = (FailedResponse) response;
+        return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
                 
     }
     
@@ -64,9 +67,11 @@ public class UserResource {
          JMSResponse response =  comm.exchange(caacfu);
         
         if(response instanceof SuccessfulResponse){
-            return Response.status(Response.Status.ACCEPTED).entity("Address and/or city changed!").build();
+            SuccessfulResponse sr = (SuccessfulResponse) response;
+            return Response.status(Response.Status.ACCEPTED).entity(sr.toString()).build();
         }        
-        return Response.status(Response.Status.BAD_REQUEST).entity("Address and/or city not changed!").build();
+        FailedResponse fr = (FailedResponse) response;
+        return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
     }
     
     @POST
@@ -77,9 +82,11 @@ public class UserResource {
         JMSResponse response = comm.exchange(amtuc);
                 
         if(response instanceof SuccessfulResponse){
-            return Response.status(Response.Status.ACCEPTED).entity("Money added to user!").build();
+            SuccessfulResponse sr = (SuccessfulResponse) response;
+            return Response.status(Response.Status.ACCEPTED).entity(sr.toString()).build();
         }        
-        return Response.status(Response.Status.BAD_REQUEST).entity("Money not added to user!").build();
+        FailedResponse fr = (FailedResponse) response;
+        return Response.status(Response.Status.BAD_REQUEST).entity(fr.toString()).build();
     }
     
     @GET

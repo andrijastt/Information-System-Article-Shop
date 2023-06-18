@@ -40,8 +40,11 @@ public class GetAllArticlesThatUserSellsRequest extends Request {
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();
         
-        String temp = response.readEntity(String.class);                       
-        Gson gson = new Gson();        
+        String temp = response.readEntity(String.class); 
+        if(temp.contains("Failed Response")){
+            System.out.println(temp);
+            return response;
+        }
         List<ArticleRest> articles = Arrays.asList(new GsonBuilder().create().fromJson(temp, ArticleRest[].class));
         
         for(ArticleRest article: articles){
