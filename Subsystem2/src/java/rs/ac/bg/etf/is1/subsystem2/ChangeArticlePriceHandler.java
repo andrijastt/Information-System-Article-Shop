@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import rs.ac.bg.etf.is1.commands.ChangeArticlePriceCommand;
 import rs.ac.bg.etf.is1.commands.Command;
 import rs.ac.bg.etf.is1.entities.Article;
+import rs.ac.bg.etf.is1.entities.Cart;
+import rs.ac.bg.etf.is1.entities.Incart;
 import rs.ac.bg.etf.is1.entities.User;
 import rs.ac.bg.etf.is1.responses.CommandHandler;
 import rs.ac.bg.etf.is1.responses.FailedResponse;
@@ -37,16 +39,29 @@ public class ChangeArticlePriceHandler extends CommandHandler {
         }
         
         int IDArticle = Integer.parseInt(capc.getIDArticle());
-        List<Article> articles = em.createQuery("Select a from Article a where a.iDarticle = :id and a.iDUser = :id1").setParameter("id", IDArticle).setParameter("id1", user).getResultList();
         
-        if(articles.isEmpty()){
+        Article article = em.find(Article.class, IDArticle);        
+        if(article == null){
+            return new FailedResponse(capc, "Article with ID " + capc.getIDArticle()+ " doesn't exist");
+        }
+        
+        if(article.getIDUser() != user){
             return new FailedResponse(capc, "User with ID " + capc.getIDUser() + " doesn't sell article with ID " + capc.getIDArticle());
         }
         
-        Article article = articles.get(0);
-        
         em.getTransaction().begin();
-        article.setPrice(Integer.parseInt(capc.getPrice()));
+        
+        List<Incart> incart = em.createNamedQuery("Incart.findByIDArticle").setParameter("iDArticle", IDArticle).getResultList();
+        for(Incart item: incart){            
+            Cart cart = em.find(Cart.class, item.getIncartPK().getIDUser());
+            cart.setTotalPrice(cart.getTotalPrice() - item.getAmount() * (100 - article.getDiscount()) / 100 * article.getPrice());
+        }
+        int price = Integer.parseInt(capc.getPrice());
+        article.setPrice(price);
+        for(Incart item: incart){            
+            Cart cart = em.find(Cart.class, item.getIncartPK().getIDUser());
+            cart.setTotalPrice(cart.getTotalPrice() + item.getAmount() * (100 - article.getDiscount()) / 100 * price);
+        }
         em.getTransaction().commit();
         em.clear();
         
