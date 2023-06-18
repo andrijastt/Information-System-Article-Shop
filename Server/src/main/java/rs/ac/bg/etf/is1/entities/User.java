@@ -43,19 +43,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByMoney", query = "SELECT u FROM User u WHERE u.money = :money")})
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDUser")
-    private Integer iDUser;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
@@ -78,6 +72,14 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "money")
     private int money;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDUser")
+    private List<Orders> ordersList;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDUser")
+    private Integer iDUser;
     @JoinColumn(name = "IDCity", referencedColumnName = "IDCity")
     @ManyToOne(optional = false)
     private City iDCity;
@@ -109,6 +111,57 @@ public class User implements Serializable {
 
     public void setIDUser(Integer iDUser) {
         this.iDUser = iDUser;
+    }
+
+
+    public City getIDCity() {
+        return iDCity;
+    }
+
+    public void setIDCity(City iDCity) {
+        this.iDCity = iDCity;
+    }
+
+    @XmlTransient
+    public List<Article> getArticleList() {
+        return articleList;
+    }
+
+    public void setArticleList(List<Article> articleList) {
+        this.articleList = articleList;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (iDUser != null ? iDUser.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof User)) {
+            return false;
+        }
+        User other = (User) object;
+        if ((this.iDUser == null && other.iDUser != null) || (this.iDUser != null && !this.iDUser.equals(other.iDUser))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "rs.ac.bg.etf.is1.entities.User[ iDUser=" + iDUser + " ]";
     }
 
     public String getUsername() {
@@ -159,54 +212,13 @@ public class User implements Serializable {
         this.money = money;
     }
 
-    public City getIDCity() {
-        return iDCity;
-    }
-
-    public void setIDCity(City iDCity) {
-        this.iDCity = iDCity;
-    }
-
     @XmlTransient
-    public List<Article> getArticleList() {
-        return articleList;
+    public List<Orders> getOrdersList() {
+        return ordersList;
     }
 
-    public void setArticleList(List<Article> articleList) {
-        this.articleList = articleList;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (iDUser != null ? iDUser.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.iDUser == null && other.iDUser != null) || (this.iDUser != null && !this.iDUser.equals(other.iDUser))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "rs.ac.bg.etf.is1.entities.User[ iDUser=" + iDUser + " ]";
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
     }
     
 }

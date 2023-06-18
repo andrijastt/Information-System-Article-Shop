@@ -10,14 +10,14 @@ package rs.ac.bg.etf.is1.commands;
  */
 public class GetAllOrdersForUserCommand extends Command {
     
-    private final String username; 
+    private final String IDUser; 
 
-    public GetAllOrdersForUserCommand(String username) {
-        this.username = username;
+    public GetAllOrdersForUserCommand(String IDUser) {
+        this.IDUser = IDUser;
     }
 
-    public String getUsername() {
-        return username;
+    public String getIDUser() {
+        return IDUser;
     }
     
     @Override

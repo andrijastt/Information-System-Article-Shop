@@ -40,12 +40,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Article.findByDiscount", query = "SELECT a FROM Article a WHERE a.discount = :discount")})
 public class Article implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDArticle")
-    private Integer iDArticle;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -64,6 +58,13 @@ public class Article implements Serializable {
     @NotNull
     @Column(name = "Discount")
     private int discount;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDArticle")
+    private Integer iDArticle;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDArticle")
     private List<Item> itemList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDArticle")
@@ -100,37 +101,6 @@ public class Article implements Serializable {
         this.iDArticle = iDArticle;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(int discount) {
-        this.discount = discount;
-    }
 
     @XmlTransient
     public List<Item> getItemList() {
@@ -198,6 +168,38 @@ public class Article implements Serializable {
     @Override
     public String toString() {
         return "rs.ac.bg.etf.is1.entities.Article[ iDArticle=" + iDArticle + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
     
 }

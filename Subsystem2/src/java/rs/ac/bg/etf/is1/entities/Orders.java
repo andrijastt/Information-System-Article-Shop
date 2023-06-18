@@ -67,6 +67,9 @@ public class Orders implements Serializable {
     @JoinColumn(name = "IDCity", referencedColumnName = "IDCity")
     @ManyToOne(optional = false)
     private City iDCity;
+    @JoinColumn(name = "IDUser", referencedColumnName = "IDUser")
+    @ManyToOne(optional = false)
+    private User iDUser;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDOrder")
     private List<Transaction> transactionList;
 
@@ -131,6 +134,14 @@ public class Orders implements Serializable {
 
     public void setIDCity(City iDCity) {
         this.iDCity = iDCity;
+    }
+
+    public User getIDUser() {
+        return iDUser;
+    }
+
+    public void setIDUser(User iDUser) {
+        this.iDUser = iDUser;
     }
 
     @XmlTransient

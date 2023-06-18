@@ -36,12 +36,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Transaction.findByTotalPrice", query = "SELECT t FROM Transaction t WHERE t.totalPrice = :totalPrice")})
 public class Transaction implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDTransaction")
-    private Integer iDTransaction;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PaymentTime")
@@ -51,6 +45,13 @@ public class Transaction implements Serializable {
     @NotNull
     @Column(name = "TotalPrice")
     private int totalPrice;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDTransaction")
+    private Integer iDTransaction;
     @JoinColumn(name = "IDOrder", referencedColumnName = "IDOrder")
     @ManyToOne(optional = false)
     private Orders iDOrder;
@@ -76,21 +77,6 @@ public class Transaction implements Serializable {
         this.iDTransaction = iDTransaction;
     }
 
-    public Date getPaymentTime() {
-        return paymentTime;
-    }
-
-    public void setPaymentTime(Date paymentTime) {
-        this.paymentTime = paymentTime;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 
     public Orders getIDOrder() {
         return iDOrder;
@@ -123,6 +109,22 @@ public class Transaction implements Serializable {
     @Override
     public String toString() {
         return "rs.ac.bg.etf.is1.entities.Transaction[ iDTransaction=" + iDTransaction + " ]";
+    }
+
+    public Date getPaymentTime() {
+        return paymentTime;
+    }
+
+    public void setPaymentTime(Date paymentTime) {
+        this.paymentTime = paymentTime;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
     
 }

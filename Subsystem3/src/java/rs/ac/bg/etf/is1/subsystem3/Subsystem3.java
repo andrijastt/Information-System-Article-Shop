@@ -47,10 +47,10 @@ public class Subsystem3 {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Subsystem2PU");
         EntityManager em = emf.createEntityManager();
         Map<Command.Type, CommandHandler> map = new EnumMap<>(Command.Type.class);
-//        map.put(Command.Type.CREATE_CATEGORY, new CreateCategoryHandler(em));
-//        map.put(Command.Type.CREATE_ARTICLE, new CreateArticleHandler(em));
+        //        map.put(Command.Type.CHANGE_DISCOUNT_FOR_ARTICLE, new ChangeDiscountForArticleHandler(em));      
+        map.put(Command.Type.GET_ALL_ORDERS_FOR_USER, new GetAllOrdersForUserHandler(em));
+        map.put(Command.Type.GET_ALL_ORDERS, new GetAllOrdersHandler(em));
 //        map.put(Command.Type.CHANGE_ARTICLE_PRICE, new ChangeArticlePriceHandler(em));
-//        map.put(Command.Type.CHANGE_DISCOUNT_FOR_ARTICLE, new ChangeDiscountForArticleHandler(em));      
         return map;
     }
     
